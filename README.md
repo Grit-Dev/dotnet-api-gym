@@ -29,7 +29,7 @@ The purpose of this repository is to build confidence and practical understandin
 
 This repository is used for focused learning, repetition, and technical interview preparation.
 
-It complements my larger portfolio project, **Cyperpunk Vault**, a Cyberpunk TCG collection, wishlist, and trading API. Choom Vault remains the main portfolio application, while the API Gym provides smaller projects where backend concepts can be practised repeatedly and understood in isolation.
+It complements my larger portfolio project, **Cyperpunk Vault**, a Cyberpunk TCG collection, wishlist, and trading API. Cyberpunk Vault remains the main portfolio application, while the API Gym provides smaller projects where backend concepts can be practised repeatedly and understood in isolation.
 
 ## Learning Approach
 
@@ -45,7 +45,7 @@ Each project follows a progressive learning cycle:
 8. Review the implementation and tests.
 9. Run the complete solution using `dotnet build` and `dotnet test`.
 10. Commit each working milestone using a clear Git commit message.
-11. Apply the patterns learned here to larger applications such as Choom Vault.
+11. Apply the patterns learned here to larger applications such as Cyberpunk Vault.
 
 The goal is not simply to complete each project. The goal is to understand the complete request flow and become capable of designing, implementing, testing, debugging, and explaining backend features independently.
 
