@@ -296,16 +296,16 @@ Swagger UI provides one page for viewing and testing the endpoints exposed by al
 ## Current Progress
 
 - [x] Created the .NET solution and Basic REST API project
-- [x] Added the project to the solution
 - [x] Confirmed the solution builds and runs successfully
 - [x] Reviewed the application startup flow in `Program.cs`
-- [x] Created the first Games controller
 - [x] Created `GET /api/games`
-- [x] Returned a typed `ActionResult<List<string>>`
+- [x] Added a structured `Game` model
+- [x] Updated the endpoint to return `ActionResult<List<Game>>`
+- [x] Returned structured game data using `200 OK`
 - [x] Added OpenAPI generation and Swagger UI
-- [x] Configured Visual Studio to launch Swagger
-- [ ] Add a structured `Game` model
+- [x] Completed the first structured-data challenge
 - [ ] Add an endpoint for retrieving a game by ID
+- [ ] Return `404 Not Found` when a game does not exist
 - [ ] Add complete CRUD endpoints
 - [ ] Introduce DTOs and validation
 - [ ] Add the first xUnit test project

@@ -33,3 +33,38 @@ Replace the current list of game-title strings with structured `Game` objects.
 - [x] Build the solution successfully
 - [x] Test the endpoint through Swagger UI
 - [x] Explain the model and endpoint behaviour
+
+
+##
+## Challenge 2 — Retrieve a Game by ID
+##
+
+**Status:** Not started
+
+### Goal
+
+Create an endpoint that retrieves one game using its unique identifier.
+
+### Requirements
+
+- Create a `GET /api/games/{id}` endpoint.
+- Accept the game ID as a route parameter.
+- Return `ActionResult<Game>`.
+- Search the existing game collection for the requested ID.
+- Return `200 OK` with the matching game.
+- Return `404 Not Found` when no matching game exists.
+- Test an existing ID through Swagger UI.
+- Test a missing ID through Swagger UI.
+- Explain why the endpoint returns `ActionResult<Game>`.
+- Explain why a missing resource should return `404` rather than `200` with `null`.
+
+### Completion Checklist
+
+- [ ] Learn how route parameters work
+- [ ] Make the games collection reusable
+- [ ] Create the endpoint
+- [ ] Return the matching game
+- [ ] Handle a missing game
+- [ ] Build successfully
+- [ ] Test successful and unsuccessful requests
+- [ ] Explain the endpoint behaviour
