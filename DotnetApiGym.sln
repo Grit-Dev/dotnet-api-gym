@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-basic-rest-api", "01-basic-rest-api", "{4E2DE0B0-D004-1D82-A1E3-B28A4B0E8221}"
+	ProjectSection(SolutionItems) = preProject
+		CHALLENGES.md = CHALLENGES.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicRestApi", "01-basic-rest-api\BasicRestApi.csproj", "{DE575C00-3F30-4952-85C4-56A149F2BBFC}"
 EndProject
