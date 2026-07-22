@@ -39,7 +39,7 @@ Replace the current list of game-title strings with structured `Game` objects.
 ## Challenge 2 — Retrieve a Game by ID
 ##
 
-**Status:** Not started
+**Status:** Complete
 
 ### Goal
 
@@ -60,11 +60,11 @@ Create an endpoint that retrieves one game using its unique identifier.
 
 ### Completion Checklist
 
-- [ ] Learn how route parameters work
-- [ ] Make the games collection reusable
-- [ ] Create the endpoint
-- [ ] Return the matching game
-- [ ] Handle a missing game
-- [ ] Build successfully
-- [ ] Test successful and unsuccessful requests
-- [ ] Explain the endpoint behaviour
+- [x] Learn how route parameters work
+- [x] Make the games collection reusable
+- [x] Create the endpoint
+- [x] Return the matching game
+- [x] Handle a missing game
+- [x] Build successfully
+- [x] Test successful and unsuccessful requests
+- [x] Explain the endpoint behaviour
