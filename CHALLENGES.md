@@ -68,3 +68,39 @@ Create an endpoint that retrieves one game using its unique identifier.
 - [x] Build successfully
 - [x] Test successful and unsuccessful requests
 - [x] Explain the endpoint behaviour
+
+
+## Challenge 3 — Create a Game
+
+**Status:** Complete
+
+### Goal
+
+Create an endpoint that accepts game data from the request body, assigns a new identifier, adds the game to the in-memory collection, and returns an appropriate HTTP response.
+
+### Requirements
+
+- Create a `POST /api/games` endpoint.
+- Accept a `Game` object from the request body.
+- Do not trust the client-provided ID.
+- Generate the next available ID on the server.
+- Add the new game to the `_games` collection.
+- Return `201 Created`.
+- Return the newly created game in the response body.
+- Include a location pointing to `GET /api/games/{id}`.
+- Confirm the new game appears in `GET /api/games`.
+- Explain request-body model binding.
+- Explain why `201 Created` is more appropriate than `200 OK`.
+
+### Completion Checklist
+
+- [x] Learn how POST and request bodies work
+- [x] Create the POST endpoint
+- [x] Generate the game ID on the server
+- [x] Add the game to the collection
+- [x] Return `201 Created`
+- [x] Include the created game in the response
+- [x] Confirm the game can be retrieved afterward
+- [x] Build successfully
+- [x] Test through Swagger
+- [x] Explain the endpoint behaviour
