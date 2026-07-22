@@ -35,5 +35,29 @@ namespace BasicRestApi.Controllers
 
             return Ok(game);
         }
+
+        [HttpPost]
+        public ActionResult<Game> CreateGame(Game game)
+        {
+            int maxId = _games.Count == 0 ? 1 : _games.Max(g => g.Id) + 1;
+
+
+            Game createdGame = new()
+            {
+                Id = maxId,
+                Title = game.Title,
+                Genre = game.Genre,
+                ReleaseYear = game.ReleaseYear
+            };
+
+            var gameCheck = _games.FirstOrDefault(g => g.Id == createdGame.Id);
+
+            _games.Add(createdGame);
+
+            return CreatedAtAction(nameof(GetGameById), new { id = createdGame.Id },createdGame);
+
+
+        }
     }
 }
+
