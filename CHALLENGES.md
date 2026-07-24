@@ -164,5 +164,34 @@ Create a `Dtos` folder containing:
 
 `CreateGameRequest` will be used by:
 
-```http
+``http
 POST /api/games
+
+
+### ACS
+
+- [ ] Create the `Dtos` folder
+- [ ] Create `CreateGameRequest`
+- [ ] Create `UpdateGameRequest`
+- [ ] Require the title
+- [ ] Restrict the title to 100 characters
+- [ ] Require the genre
+- [ ] Restrict the genre to 50 characters
+- [ ] Restrict the release year to 1950–2100
+- [ ] Update POST to accept `CreateGameRequest`
+- [ ] Map the create request into a new `Game`
+- [ ] Confirm the server generates the game ID
+- [ ] Update PUT to accept `UpdateGameRequest`
+- [ ] Map the update request onto the stored game
+- [ ] Confirm PUT does not change the game ID
+- [ ] Test invalid POST requests
+- [ ] Test invalid PUT requests
+- [ ] Confirm invalid requests return `400 Bad Request`
+- [ ] Confirm invalid POST requests do not create a game
+- [ ] Confirm invalid PUT requests do not modify a game
+- [ ] Confirm valid POST returns `201 Created`
+- [ ] Confirm valid PUT returns `204 No Content`
+- [ ] Confirm missing PUT target returns `404 Not Found`
+- [ ] Build successfully
+- [ ] Explain how validation attributes work
+- [ ] Explain how `[ApiController]` handles invalid models
