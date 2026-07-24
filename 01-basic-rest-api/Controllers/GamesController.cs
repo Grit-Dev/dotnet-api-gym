@@ -35,5 +35,22 @@ namespace BasicRestApi.Controllers
 
             return Ok(game);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateGame(int id, Game game)
+        {
+            var gameFound = _games.FirstOrDefault(g => g.Id == id);
+
+            if (gameFound is null)
+            {
+                return NotFound();
+            }
+
+            gameFound.Title = game.Title;
+            gameFound.Genre = game.Genre;
+            gameFound.ReleaseYear = game.ReleaseYear;
+
+            return NoContent();
+        }
     }
 }

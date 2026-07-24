@@ -71,7 +71,7 @@ Create an endpoint that retrieves one game using its unique identifier.
 
 ## Challenge 4 — Update a Game
 
-**Status:** In progress
+**Status:** Complete
 
 ### Goal
 
@@ -91,14 +91,14 @@ Update an existing game using its route ID and replacement data from the request
 
 ### Completion Checklist
 
-- [ ] Create the PUT endpoint
-- [ ] Bind the route ID
-- [ ] Bind the request body
-- [ ] Find the existing game
-- [ ] Handle a missing game
-- [ ] Update the correct properties
-- [ ] Protect the existing ID
-- [ ] Return `204 No Content`
-- [ ] Build successfully
-- [ ] Test through Swagger
-- [ ] Explain the endpoint behaviour
+- [x] Create the PUT endpoint
+- [x] Bind the route ID
+- [x] Bind the request body
+- [x] Find the existing game
+- [x] Handle a missing game
+- [x] Update the correct properties
+- [x] Protect the existing ID
+- [x] Return `204 No Content`
+- [x] Build successfully
+- [x] Test through Swagger
+- [x] Explain the endpoint behaviour
