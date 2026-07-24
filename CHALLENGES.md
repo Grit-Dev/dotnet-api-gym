@@ -102,3 +102,38 @@ Update an existing game using its route ID and replacement data from the request
 - [x] Build successfully
 - [x] Test through Swagger
 - [x] Explain the endpoint behaviour
+
+## Challenge 5 — Delete a Game
+
+**Status:** Complete
+
+### Goal
+
+Delete an existing game using its unique identifier.
+
+### Requirements
+
+- Create `DELETE /api/games/{id}`.
+- Accept the ID from the route.
+- Search for the matching game.
+- Return `404 Not Found` when the game does not exist.
+- Remove the matching game from `_games`.
+- Return `204 No Content` after a successful deletion.
+- Confirm the deleted game no longer appears in `GET /api/games`.
+- Confirm `GET /api/games/{id}` returns `404` afterward.
+- Explain why `IActionResult` is suitable for this endpoint.
+- Explain why `204 No Content` is appropriate.
+
+### Completion Checklist
+
+- [x] Create the DELETE endpoint
+- [x] Bind the route ID
+- [x] Find the existing game
+- [x] Handle a missing game
+- [x] Remove the game
+- [x] Return `204 No Content`
+- [x] Build successfully
+- [x] Test a successful deletion
+- [x] Test a missing ID
+- [x] Confirm the deleted game cannot be retrieved
+- [x] Explain the endpoint behaviour

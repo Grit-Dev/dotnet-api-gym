@@ -52,6 +52,21 @@ namespace BasicRestApi.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteGame(int id)
+        {
+            var gameFound = _games.FirstOrDefault(g => g.Id == id);
+
+            if (gameFound is null)
+            {
+                return NotFound();
+            }
+
+            _games.Remove(gameFound);
+
+            return NoContent();
+        }
     }
 }
 
