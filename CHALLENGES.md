@@ -68,3 +68,37 @@ Create an endpoint that retrieves one game using its unique identifier.
 - [x] Build successfully
 - [x] Test successful and unsuccessful requests
 - [x] Explain the endpoint behaviour
+
+## Challenge 4 — Update a Game
+
+**Status:** In progress
+
+### Goal
+
+Update an existing game using its route ID and replacement data from the request body.
+
+### Requirements
+
+- Create `PUT /api/games/{id}`.
+- Accept the game ID from the route.
+- Accept updated game data from the JSON request body.
+- Find the existing game using the route ID.
+- Return `404 Not Found` if the game does not exist.
+- Do not allow the request body to change the game’s ID.
+- Update the title, genre, and release year.
+- Return `204 No Content` after a successful update.
+- Confirm the updated game using `GET /api/games/{id}`.
+
+### Completion Checklist
+
+- [ ] Create the PUT endpoint
+- [ ] Bind the route ID
+- [ ] Bind the request body
+- [ ] Find the existing game
+- [ ] Handle a missing game
+- [ ] Update the correct properties
+- [ ] Protect the existing ID
+- [ ] Return `204 No Content`
+- [ ] Build successfully
+- [ ] Test through Swagger
+- [ ] Explain the endpoint behaviour
