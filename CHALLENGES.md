@@ -26,13 +26,13 @@ Replace the current list of game-title strings with structured `Game` objects.
 
 ### Completion Checklist
 
-- [] Create the `Models` folder
-- [] Create the `Game` model
-- [] Update the controller return type
-- [] Populate a `List<Game>`
-- [] Build the solution successfully
-- [] Test the endpoint through Swagger UI
-- [] Explain the model and endpoint behaviour
+- [x] Create the `Models` folder
+- [x] Create the `Game` model
+- [x] Update the controller return type
+- [x] Populate a `List<Game>`
+- [x] Build the solution successfully
+- [x] Test the endpoint through Swagger UI
+- [x] Explain the model and endpoint behaviour
 
 
 ##
