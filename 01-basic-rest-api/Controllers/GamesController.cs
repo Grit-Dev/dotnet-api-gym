@@ -36,27 +36,21 @@ namespace BasicRestApi.Controllers
             return Ok(game);
         }
 
-        [HttpPost]
-        public ActionResult<Game> CreateGame(Game game)
+        [HttpPut("{id}")]
+        public IActionResult UpdateGame(int id, Game game)
         {
-            int maxId = _games.Count == 0 ? 1 : _games.Max(g => g.Id) + 1;
+            var gameFound = _games.FirstOrDefault(g => g.Id == id);
 
-
-            Game createdGame = new()
+            if (gameFound is null)
             {
-                Id = maxId,
-                Title = game.Title,
-                Genre = game.Genre,
-                ReleaseYear = game.ReleaseYear
-            };
+                return NotFound();
+            }
 
-            var gameCheck = _games.FirstOrDefault(g => g.Id == createdGame.Id);
+            gameFound.Title = game.Title;
+            gameFound.Genre = game.Genre;
+            gameFound.ReleaseYear = game.ReleaseYear;
 
-            _games.Add(createdGame);
-
-            return CreatedAtAction(nameof(GetGameById), new { id = createdGame.Id },createdGame);
-
-
+            return NoContent();
         }
     }
 }
