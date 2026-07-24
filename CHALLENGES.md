@@ -6,7 +6,7 @@ Each challenge increases gradually in difficulty. A challenge is complete when t
 
 ## Challenge 1 — Return Structured Game Data
 
-**Status:** In progress
+**Status:** In Completed
 
 ### Goal
 
@@ -137,3 +137,37 @@ Delete an existing game using its unique identifier.
 - [x] Test a missing ID
 - [x] Confirm the deleted game cannot be retrieved
 - [x] Explain the endpoint behaviour
+
+## Challenge 6 — Validate Game Input
+
+**Status:** In progress
+
+### Goal
+
+Prevent invalid game data from being accepted by the API.
+
+### Requirements
+
+- Require a game title.
+- Require a game genre.
+- Set sensible maximum lengths for the title and genre.
+- Reject invalid release years.
+- Apply validation when creating a game.
+- Apply validation when updating a game.
+- Return `400 Bad Request` when validation fails.
+- Return useful validation error information.
+- Confirm valid requests still succeed.
+
+### Completion Checklist
+
+- [ ] Require the title
+- [ ] Require the genre
+- [ ] Restrict the title length
+- [ ] Restrict the genre length
+- [ ] Validate the release year
+- [ ] Test invalid POST requests
+- [ ] Test invalid PUT requests
+- [ ] Confirm invalid input returns `400 Bad Request`
+- [ ] Confirm valid input still succeeds
+- [ ] Build successfully
+- [ ] Explain how model validation works
