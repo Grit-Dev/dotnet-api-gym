@@ -140,7 +140,7 @@ Delete an existing game using its unique identifier.
 
 ## Challenge 6 — Validate Game Requests
 
-**Status:** In progress
+**Status:** Complete
 
 ### Goal
 
