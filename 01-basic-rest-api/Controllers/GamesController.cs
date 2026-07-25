@@ -1,4 +1,4 @@
-﻿using BasicRestApi.DTOS;
+﻿using BasicRestApi.Dtos;
 using BasicRestApi.Models;
 using BasicRestApi.Services;
 using Microsoft.AspNetCore.Mvc;
