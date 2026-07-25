@@ -172,26 +172,26 @@ POST /api/games
 
 - [x] Create the `Dtos` folder
 - [x] Create `CreateGameRequest`
-- [ ] Create `UpdateGameRequest`
+- [x] Create `UpdateGameRequest`
 - [x] Require the title
 - [x] Restrict the title to 100 characters
 - [x] Require the genre
 - [x] Restrict the genre to 50 characters
 - [x] Restrict the release year to 1950–2100
 - [x] Update POST to accept `CreateGameRequest`
-- [ ] Map the create request into a new `Game`
-- [ ] Confirm the server generates the game ID
-- [ ] Update PUT to accept `UpdateGameRequest`
-- [ ] Map the update request onto the stored game
-- [ ] Confirm PUT does not change the game ID
-- [ ] Test invalid POST requests
-- [ ] Test invalid PUT requests
-- [ ] Confirm invalid requests return `400 Bad Request`
-- [ ] Confirm invalid POST requests do not create a game
-- [ ] Confirm invalid PUT requests do not modify a game
-- [ ] Confirm valid POST returns `201 Created`
-- [ ] Confirm valid PUT returns `204 No Content`
-- [ ] Confirm missing PUT target returns `404 Not Found`
-- [ ] Build successfully
-- [ ] Explain how validation attributes work
-- [ ] Explain how `[ApiController]` handles invalid models
+- [x] Map the create request into a new `Game`
+- [x] Confirm the server generates the game ID
+- [x] Update PUT to accept `UpdateGameRequest`
+- [x] Map the update request onto the stored game
+- [x] Confirm PUT does not change the game ID
+- [x] Test invalid POST requests
+- [x] Test invalid PUT requests
+- [x] Confirm invalid requests return `400 Bad Request`
+- [x] Confirm invalid POST requests do not create a game
+- [x] Confirm invalid PUT requests do not modify a game
+- [x] Confirm valid POST returns `201 Created`
+- [x] Confirm valid PUT returns `204 No Content`
+- [x] Confirm missing PUT target returns `404 Not Found`
+- [x] Build successfully
+- [x] Explain how validation attributes work
+- [x] Explain how `[ApiController]` handles invalid models

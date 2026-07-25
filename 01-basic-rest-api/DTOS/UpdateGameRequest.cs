@@ -2,7 +2,7 @@
 
 namespace BasicRestApi.DTOS
 {
-    public class UpdateGamesRequest
+    public class UpdateGameRequest
     {
         [Required]
         [StringLength(100)]
