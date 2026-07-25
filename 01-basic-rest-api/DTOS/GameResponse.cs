@@ -1,4 +1,4 @@
-﻿namespace BasicRestApi.DTOS
+﻿namespace BasicRestApi.Dtos
 {
     public class GameResponse
     {

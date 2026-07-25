@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BasicRestApi.DTOS
+namespace BasicRestApi.Dtos
 {
     public class CreateGameRequest
     {
