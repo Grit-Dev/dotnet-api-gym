@@ -260,7 +260,7 @@ Create an `IGameService` interface with operations for:
 
 Suggested method signatures:
 
-```csharp
+``csharp
 IReadOnlyList<Game> GetGames();
 
 Game? GetGameById(int id);
@@ -270,3 +270,55 @@ Game CreateGame(Game game);
 bool UpdateGame(int id, Game game);
 
 bool DeleteGame(int id);
+
+
+## Challenge 9 — Unit-Test GameService
+
+**Status:** In progress
+
+### Goal
+
+Learn how to test service behaviour automatically using xUnit.
+
+Each test should create a fresh `GameService`, perform one operation, and verify the result.
+
+### Concepts
+
+- Test project
+- xUnit
+- `[Fact]`
+- Arrange, Act, Assert
+- Test isolation
+- Clear test naming
+- Success and failure paths
+
+### Service Behaviours to Test
+
+- Getting all games
+- Getting an existing game by ID
+- Getting a missing game by ID
+- Creating and storing a game
+- Generating a game ID
+- Updating an existing game
+- Attempting to update a missing game
+- Deleting an existing game
+- Attempting to delete a missing game
+
+### Completion Checklist
+
+- [x] Create the xUnit test project
+- [x] Add the test project to the solution
+- [x] Reference the API project
+- [x] Explain Arrange, Act, Assert
+- [x] Test getting an existing game
+- [x] Test getting a missing game
+- [ ] Test getting all games
+- [ ] Test creating a game
+- [ ] Confirm creation generates an ID
+- [ ] Confirm creation stores the game
+- [ ] Test updating an existing game
+- [ ] Test updating a missing game
+- [ ] Test deleting an existing game
+- [ ] Test deleting a missing game
+- [ ] Confirm every test has isolated state
+- [ ] Run all tests successfully
