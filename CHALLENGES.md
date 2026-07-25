@@ -227,5 +227,46 @@ The PUT and DELETE endpoints still return `204 No Content`, so they do not need 
 
 Create:
 
-```text
+``text
 Dtos/GameResponse.cs
+
+
+### Challenge 8 — Extract a Game Service and Use Dependency Injection
+
+**Status:** Complete
+
+### Goal
+
+Move game storage and CRUD logic out of `GamesController` and into a dedicated service.
+
+Use ASP.NET Core dependency injection to provide the service to the controller.
+
+### New Files
+
+Create a `Services` folder containing:
+
+- `IGameService.cs`
+- `GameService.cs`
+
+### Service Interface
+
+Create an `IGameService` interface with operations for:
+
+- Getting all games
+- Getting one game by ID
+- Creating a game
+- Updating a game
+- Deleting a game
+
+Suggested method signatures:
+
+```csharp
+IReadOnlyList<Game> GetGames();
+
+Game? GetGameById(int id);
+
+Game CreateGame(Game game);
+
+bool UpdateGame(int id, Game game);
+
+bool DeleteGame(int id);

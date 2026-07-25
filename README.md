@@ -308,5 +308,7 @@ Swagger UI provides one page for viewing and testing the endpoints exposed by al
 - [x] Return `404 Not Found` when a game does not exist
 - [x] Add complete CRUD endpoints
 - [x] Introduce DTOs and validation
+- [x] Extract game logic into a service
+- [x] Use dependency injection in the games controller
 - [ ] Add the first xUnit test project
 - [ ] Write and run the first unit tests

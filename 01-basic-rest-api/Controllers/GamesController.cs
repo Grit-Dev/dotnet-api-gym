@@ -1,5 +1,6 @@
 ﻿using BasicRestApi.DTOS;
 using BasicRestApi.Models;
+using BasicRestApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BasicRestApi.Controllers
@@ -8,28 +9,30 @@ namespace BasicRestApi.Controllers
     [Route("api/[controller]")]
     public class GamesController : ControllerBase
     {
-        private static readonly List<Game> _games =
-        [
-            new() { Id = 1, Title = "Witcher 3", Genre = "Action RPG", ReleaseYear = 2020},
-            new() { Id = 2, Title = "Cyberpunk 2077", Genre = "Action RPG", ReleaseYear = 2020},
-            new() { Id = 3, Title = "Crimson Desert", Genre = "Action RPG", ReleaseYear = 2020}
-        ];
+        private readonly IGameService _gameService;
+
+        public GamesController(IGameService gameService)
+        {
+            _gameService = gameService;
+        }
 
         [HttpGet]
         // Returning data? Prefer ActionResult<T>.
         // Mainly returning an outcome/ status ? IActionResult is often suitable.
         public ActionResult<List<GameResponse>> GetGames()
         {
+            var games = _gameService.GetGames();
+
             var response = new List<GameResponse>();
 
-            foreach (Game game in _games)
+            foreach (var game in games)
             {
                 response.Add(new GameResponse
                 {
                     Id = game.Id,
                     Title = game.Title,
                     Genre = game.Genre,
-                    ReleaseYear = game.ReleaseYear,
+                    ReleaseYear = game.ReleaseYear
                 });
             }
 
@@ -39,7 +42,7 @@ namespace BasicRestApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<GameResponse> GetGameById(int id)
         {
-            var game = _games.FirstOrDefault(g => g.Id == id);
+            var game = _gameService.GetGameById(id);
 
             if (game is null)
             {
@@ -60,42 +63,43 @@ namespace BasicRestApi.Controllers
         [HttpPost]
         public ActionResult<GameResponse> CreateGame(CreateGameRequest request)
         {
-            var newId = _games.Count == 0 ? 1 : _games.Max(g => g.Id) + 1;
 
             var gameAdd = new Game
             {
-                Id = newId,
                 Title = request.Title,
                 Genre = request.Genre,
                 ReleaseYear = request.ReleaseYear,
             };
 
-            _games.Add(gameAdd);
-
+            var createdGame = _gameService.CreateGame(gameAdd);
+            
             var response = new GameResponse
             {
-                Id = gameAdd.Id,
-                Title = gameAdd.Title,
-                Genre = gameAdd.Genre,
-                ReleaseYear = gameAdd.ReleaseYear,
+                Id = createdGame.Id,
+                Title = createdGame.Title,
+                Genre = createdGame.Genre,
+                ReleaseYear = createdGame.ReleaseYear,
             };
 
-            return CreatedAtAction(nameof(GetGameById), new { id = gameAdd.Id }, response);
+            return CreatedAtAction(nameof(GetGameById), new { id = createdGame.Id }, response);
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateGame(int id, UpdateGameRequest request)
         {
-            var gameFound = _games.FirstOrDefault(g => g.Id == id);
+            var updateGame = new Game
+            {
+                Title = request.Title,
+                Genre = request.Genre,
+                ReleaseYear = request.ReleaseYear
+            };
 
-            if (gameFound is null)
+            var gameFound = _gameService.UpdateGame(id, updateGame);
+
+            if (!gameFound)
             {
                 return NotFound();
             }
-
-            gameFound.Title = request.Title;
-            gameFound.Genre = request.Genre;
-            gameFound.ReleaseYear = request.ReleaseYear;
 
             return NoContent();
         }
@@ -103,14 +107,12 @@ namespace BasicRestApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteGame(int id)
         {
-            var gameFound = _games.FirstOrDefault(g => g.Id == id);
+            var gameFound = _gameService.DeleteGame(id);
 
-            if (gameFound is null)
+            if (!gameFound)
             {
                 return NotFound();
             }
-
-            _games.Remove(gameFound);
 
             return NoContent();
         }
