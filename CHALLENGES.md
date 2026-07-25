@@ -170,15 +170,15 @@ POST /api/games
 
 ### ACS
 
-- [ ] Create the `Dtos` folder
-- [ ] Create `CreateGameRequest`
+- [x] Create the `Dtos` folder
+- [x] Create `CreateGameRequest`
 - [ ] Create `UpdateGameRequest`
-- [ ] Require the title
-- [ ] Restrict the title to 100 characters
-- [ ] Require the genre
-- [ ] Restrict the genre to 50 characters
-- [ ] Restrict the release year to 1950–2100
-- [ ] Update POST to accept `CreateGameRequest`
+- [x] Require the title
+- [x] Restrict the title to 100 characters
+- [x] Require the genre
+- [x] Restrict the genre to 50 characters
+- [x] Restrict the release year to 1950–2100
+- [x] Update POST to accept `CreateGameRequest`
 - [ ] Map the create request into a new `Game`
 - [ ] Confirm the server generates the game ID
 - [ ] Update PUT to accept `UpdateGameRequest`

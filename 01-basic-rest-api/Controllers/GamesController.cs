@@ -1,4 +1,5 @@
-﻿using BasicRestApi.Models;
+﻿using BasicRestApi.DTOS;
+using BasicRestApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BasicRestApi.Controllers
@@ -37,7 +38,7 @@ namespace BasicRestApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Game> CreateGame(Game game)
+        public ActionResult<Game> CreateGame(CreateGameRequest game)
         {
             var newId = _games.Count == 0 ? 1 : _games.Max(g => g.Id) + 1;
 
@@ -55,7 +56,7 @@ namespace BasicRestApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateGame(int id, Game game)
+        public IActionResult UpdateGame(int id, UpdateGamesRequest game)
         {
             var gameFound = _games.FirstOrDefault(g => g.Id == id);
 
