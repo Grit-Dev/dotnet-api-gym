@@ -306,7 +306,7 @@ Swagger UI provides one page for viewing and testing the endpoints exposed by al
 - [x] Completed the first structured-data challenge
 - [x] Add an endpoint for retrieving a game by ID
 - [x] Return `404 Not Found` when a game does not exist
-- [ ] Add complete CRUD endpoints
-- [ ] Introduce DTOs and validation
+- [x] Add complete CRUD endpoints
+- [x] Introduce DTOs and validation
 - [ ] Add the first xUnit test project
 - [ ] Write and run the first unit tests

@@ -18,14 +18,26 @@ namespace BasicRestApi.Controllers
         [HttpGet]
         // Returning data? Prefer ActionResult<T>.
         // Mainly returning an outcome/ status ? IActionResult is often suitable.
-        public ActionResult<List<Game>> GetGames()
+        public ActionResult<List<GameResponse>> GetGames()
         {
+            var response = new List<GameResponse>();
 
-            return Ok(_games);
+            foreach (Game game in _games)
+            {
+                response.Add(new GameResponse
+                {
+                    Id = game.Id,
+                    Title = game.Title,
+                    Genre = game.Genre,
+                    ReleaseYear = game.ReleaseYear,
+                });
+            }
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Game> GetGameById(int id)
+        public ActionResult<GameResponse> GetGameById(int id)
         {
             var game = _games.FirstOrDefault(g => g.Id == id);
 
@@ -34,11 +46,19 @@ namespace BasicRestApi.Controllers
                 return NotFound();
             }
 
-            return Ok(game);
+            var response = new GameResponse
+            {
+                Id = game.Id,
+                Title = game.Title,
+                Genre = game.Genre,
+                ReleaseYear = game.ReleaseYear
+            };
+
+            return Ok(response);
         }
 
         [HttpPost]
-        public ActionResult<Game> CreateGame(CreateGameRequest request)
+        public ActionResult<GameResponse> CreateGame(CreateGameRequest request)
         {
             var newId = _games.Count == 0 ? 1 : _games.Max(g => g.Id) + 1;
 
@@ -52,7 +72,15 @@ namespace BasicRestApi.Controllers
 
             _games.Add(gameAdd);
 
-            return CreatedAtAction(nameof(GetGameById), new { id = gameAdd.Id }, gameAdd);
+            var response = new GameResponse
+            {
+                Id = gameAdd.Id,
+                Title = gameAdd.Title,
+                Genre = gameAdd.Genre,
+                ReleaseYear = gameAdd.ReleaseYear,
+            };
+
+            return CreatedAtAction(nameof(GetGameById), new { id = gameAdd.Id }, response);
         }
 
         [HttpPut("{id}")]

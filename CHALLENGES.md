@@ -195,3 +195,37 @@ POST /api/games
 - [x] Build successfully
 - [x] Explain how validation attributes work
 - [x] Explain how `[ApiController]` handles invalid models
+
+
+## Challenge 7 — Game Response DTOs and Mapping
+
+**Status:** Complete
+
+### Goal
+
+Stop returning the internal `Game` model directly from the API.
+
+Create a response DTO that defines exactly what game data clients receive.
+
+### Why This Matters
+
+The `Game` model represents data stored inside the application.
+
+A response DTO represents data deliberately exposed by the API.
+
+Separating them allows the internal model to change without automatically changing the public API response.
+
+### Endpoints Being Updated
+
+- `GET /api/games`
+- `GET /api/games/{id}`
+- `POST /api/games`
+
+The PUT and DELETE endpoints still return `204 No Content`, so they do not need a response DTO.
+
+### Response DTO
+
+Create:
+
+```text
+Dtos/GameResponse.cs
