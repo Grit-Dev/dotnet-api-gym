@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using BasicRestApi.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -15,6 +16,8 @@ public class Program
 
         // Register OpenAPI document generation.
         builder.Services.AddOpenApi();
+
+        builder.Services.AddSingleton<IGameService, GameService>();
 
         var app = builder.Build();
 
