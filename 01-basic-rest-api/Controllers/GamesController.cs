@@ -1,4 +1,5 @@
-﻿using BasicRestApi.Models;
+﻿using BasicRestApi.DTOS;
+using BasicRestApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BasicRestApi.Controllers
@@ -37,16 +38,16 @@ namespace BasicRestApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Game> CreateGame(Game game)
+        public ActionResult<Game> CreateGame(CreateGameRequest request)
         {
             var newId = _games.Count == 0 ? 1 : _games.Max(g => g.Id) + 1;
 
             var gameAdd = new Game
             {
                 Id = newId,
-                Title = game.Title,
-                Genre = game.Genre,
-                ReleaseYear = game.ReleaseYear,
+                Title = request.Title,
+                Genre = request.Genre,
+                ReleaseYear = request.ReleaseYear,
             };
 
             _games.Add(gameAdd);
@@ -55,7 +56,7 @@ namespace BasicRestApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateGame(int id, Game game)
+        public IActionResult UpdateGame(int id, UpdateGameRequest request)
         {
             var gameFound = _games.FirstOrDefault(g => g.Id == id);
 
@@ -64,9 +65,9 @@ namespace BasicRestApi.Controllers
                 return NotFound();
             }
 
-            gameFound.Title = game.Title;
-            gameFound.Genre = game.Genre;
-            gameFound.ReleaseYear = game.ReleaseYear;
+            gameFound.Title = request.Title;
+            gameFound.Genre = request.Genre;
+            gameFound.ReleaseYear = request.ReleaseYear;
 
             return NoContent();
         }

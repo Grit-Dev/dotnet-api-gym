@@ -138,36 +138,60 @@ Delete an existing game using its unique identifier.
 - [x] Confirm the deleted game cannot be retrieved
 - [x] Explain the endpoint behaviour
 
-## Challenge 6 — Validate Game Input
+## Challenge 6 — Validate Game Requests
 
-**Status:** In progress
+**Status:** Complete
 
 ### Goal
 
-Prevent invalid game data from being accepted by the API.
+Prevent invalid game data from being accepted when creating or updating games.
 
-### Requirements
+Use separate request DTOs so the client only sends the properties required by each endpoint.
 
-- Require a game title.
-- Require a game genre.
-- Set sensible maximum lengths for the title and genre.
-- Reject invalid release years.
-- Apply validation when creating a game.
-- Apply validation when updating a game.
-- Return `400 Bad Request` when validation fails.
-- Return useful validation error information.
-- Confirm valid requests still succeed.
+### Endpoints Being Updated
 
-### Completion Checklist
+- `POST /api/games`
+- `PUT /api/games/{id}`
 
-- [ ] Require the title
-- [ ] Require the genre
-- [ ] Restrict the title length
-- [ ] Restrict the genre length
-- [ ] Validate the release year
-- [ ] Test invalid POST requests
-- [ ] Test invalid PUT requests
-- [ ] Confirm invalid input returns `400 Bad Request`
-- [ ] Confirm valid input still succeeds
-- [ ] Build successfully
-- [ ] Explain how model validation works
+The GET and DELETE endpoints do not need to change.
+
+### Request DTOs
+
+Create a `Dtos` folder containing:
+
+- `CreateGameRequest.cs`
+- `UpdateGameRequest.cs`
+
+`CreateGameRequest` will be used by:
+
+``http
+POST /api/games
+
+
+### ACS
+
+- [x] Create the `Dtos` folder
+- [x] Create `CreateGameRequest`
+- [x] Create `UpdateGameRequest`
+- [x] Require the title
+- [x] Restrict the title to 100 characters
+- [x] Require the genre
+- [x] Restrict the genre to 50 characters
+- [x] Restrict the release year to 1950–2100
+- [x] Update POST to accept `CreateGameRequest`
+- [x] Map the create request into a new `Game`
+- [x] Confirm the server generates the game ID
+- [x] Update PUT to accept `UpdateGameRequest`
+- [x] Map the update request onto the stored game
+- [x] Confirm PUT does not change the game ID
+- [x] Test invalid POST requests
+- [x] Test invalid PUT requests
+- [x] Confirm invalid requests return `400 Bad Request`
+- [x] Confirm invalid POST requests do not create a game
+- [x] Confirm invalid PUT requests do not modify a game
+- [x] Confirm valid POST returns `201 Created`
+- [x] Confirm valid PUT returns `204 No Content`
+- [x] Confirm missing PUT target returns `404 Not Found`
+- [x] Build successfully
+- [x] Explain how validation attributes work
+- [x] Explain how `[ApiController]` handles invalid models
