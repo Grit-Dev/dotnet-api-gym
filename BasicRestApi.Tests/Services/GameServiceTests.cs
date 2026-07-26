@@ -146,26 +146,36 @@ namespace BasicRestApi.Tests.Services
         public void UpdateGame_WhenCalled_ShouldReturnUpdatedProperties()
         {
             // Arrange
+            var newGame = new Game
+            {
+                Title = "Test",
+                Genre = "Test2",
+                ReleaseYear = 2000
+            };
+            
+            var gameAdded = _gameService.CreateGame(newGame);
+
             var updatedGame = new Game
             {
-                Id = 1,
                 Title = "Witcher 4",
                 Genre = "ACTION RPG",
                 ReleaseYear = 2029
             };
 
             // Act
-            var isSuccessful = _gameService.UpdateGame(updatedGame.Id, updatedGame);
-            var gameFound = _gameService.GetGameById(updatedGame.Id);
+            var isSuccessful = _gameService.UpdateGame(gameAdded.Id, updatedGame);
+            var gameFound = _gameService.GetGameById(gameAdded.Id);
 
             // Assert
             Assert.True(isSuccessful);
             Assert.NotNull(gameFound);
-            Assert.Equal(updatedGame.Id, gameFound.Id);
+            Assert.Equal(gameAdded.Id, gameFound.Id);
             Assert.Equal(updatedGame.Title, gameFound.Title);
             Assert.Equal(updatedGame.Genre, gameFound.Genre);
             Assert.Equal(updatedGame.ReleaseYear, gameFound.ReleaseYear);
         }
+
+
 
 
 
