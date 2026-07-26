@@ -26,6 +26,7 @@ namespace BasicRestApi.Tests.Services
                 retrievedGames,
                 game => game.Id == expectedId);
 
+            Assert.Equal(3, retrievedGames.Count);
             Assert.Equal(expectedTitle, game.Title);
             Assert.Equal(expectedGenre, game.Genre);
             Assert.Equal(expectedReleaseYear, game.ReleaseYear);
@@ -85,7 +86,7 @@ namespace BasicRestApi.Tests.Services
             // Arrange
             var newGame = new Game
             {
-                Title = "Gray Zone Warefare",
+                Title = "Gray Zone Warfare",
                 Genre = "Extraction Shooter",
                 ReleaseYear = 2022,
             };
@@ -98,9 +99,9 @@ namespace BasicRestApi.Tests.Services
             // Assert
             Assert.NotNull(retrievedGame);
             Assert.Equal(result.Id, retrievedGame.Id);
-            Assert.Equal(retrievedGame.Title, newGame.Title);
-            Assert.Equal(retrievedGame.Genre, newGame.Genre);
-            Assert.Equal(retrievedGame.ReleaseYear, newGame.ReleaseYear);
+            Assert.Equal(newGame.Title, retrievedGame.Title);
+            Assert.Equal(newGame.Genre, retrievedGame.Genre);
+            Assert.Equal(newGame.ReleaseYear, retrievedGame.ReleaseYear);
         }
 
         [Fact]
@@ -175,9 +176,39 @@ namespace BasicRestApi.Tests.Services
             Assert.Equal(updatedGame.ReleaseYear, gameFound.ReleaseYear);
         }
 
+        [Fact]
+        public void DeleteGame_WhenCalled_ShouldDeleteSucessfully()
+        {
+            // Arrange
+            var newGame = new Game
+            {
+                Title = "Test",
+                Genre = "Test",
+                ReleaseYear = 1990
+            };
 
+            var gameCreated = _gameService.CreateGame(newGame);
 
+            // Act
+            var gameDeleted = _gameService.DeleteGame(gameCreated.Id);
+            var retrieveGame = _gameService.GetGameById(gameCreated.Id);
 
+            // Assert
+            Assert.True(gameDeleted);
+            Assert.Null(retrieveGame);
+        }
 
+        [Fact]
+        public void DeleteGame_WhenCalled_ShouldReturnFalse_WhenGameNotFound()
+        {
+            // Arrange
+            int nonExistentId = int.MaxValue;
+
+            // Act 
+            var actual = _gameService.DeleteGame(nonExistentId);
+
+            // Assert
+            Assert.False(actual);
+        }
     }
 }

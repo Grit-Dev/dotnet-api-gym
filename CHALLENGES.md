@@ -274,7 +274,7 @@ bool DeleteGame(int id);
 
 ## Challenge 9 — Unit-Test GameService
 
-**Status:** In progress
+**Status:** Complete
 
 ### Goal
 
@@ -312,13 +312,13 @@ Each test should create a fresh `GameService`, perform one operation, and verify
 - [x] Explain Arrange, Act, Assert
 - [x] Test getting an existing game
 - [x] Test getting a missing game
-- [ ] Test getting all games
-- [ ] Test creating a game
-- [ ] Confirm creation generates an ID
-- [ ] Confirm creation stores the game
-- [ ] Test updating an existing game
-- [ ] Test updating a missing game
-- [ ] Test deleting an existing game
-- [ ] Test deleting a missing game
-- [ ] Confirm every test has isolated state
-- [ ] Run all tests successfully
+- [x] Test getting all games
+- [x] Test creating a game
+- [x] Confirm creation generates an ID
+- [x] Confirm creation stores the game
+- [x] Test updating an existing game
+- [x] Test updating a missing game
+- [x] Test deleting an existing game
+- [x] Test deleting a missing game
+- [x] Confirm every test has isolated state
+- [x] Run all tests successfully
