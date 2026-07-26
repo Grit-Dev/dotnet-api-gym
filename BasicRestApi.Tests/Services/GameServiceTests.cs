@@ -9,9 +9,9 @@ namespace BasicRestApi.Tests.Services
         private readonly GameService _gameService = new();
 
         [Theory]
-        [InlineData(1, "Witcher 3", "ActionRPG", 2020)]
-        [InlineData(2, "Cyberpunk 2077", "ActionRPG", 2020)]
-        [InlineData(3, "Crimson Desert", "ActionRPG", 2020)]
+        [InlineData(1, "Witcher 3", "Action RPG", 2020)]
+        [InlineData(2, "Cyberpunk 2077", "Action RPG", 2020)]
+        [InlineData(3, "Crimson Desert", "Action RPG", 2020)]
         public void GetAllGames_WhenCalled_ShouldReturnAllSeededGames(
             int expectedId, 
             string expectedTitle, 
