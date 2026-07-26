@@ -15,6 +15,7 @@ The purpose of this repository is to build confidence and practical understandin
 - Models and DTOs
 - Request validation
 - Dependency injection
+- Service-layer patterns
 - EF Core and SQL Server
 - Entity relationships
 - Authentication and authorization
@@ -23,13 +24,12 @@ The purpose of this repository is to build confidence and practical understandin
 - Role-based access control
 - Unit testing
 - Integration testing
-- Service-layer patterns
 - Logging and error handling
 - Clean backend structure
 
 This repository is used for focused learning, repetition, and technical interview preparation.
 
-It complements my larger portfolio project, **Cyperpunk Vault**, a Cyberpunk TCG collection, wishlist, and trading API. Cyberpunk Vault remains the main portfolio application, while the API Gym provides smaller projects where backend concepts can be practised repeatedly and understood in isolation.
+It complements my larger portfolio project, **Cyberpunk Vault**, a Cyberpunk TCG collection, wishlist, and trading API. Cyberpunk Vault remains the main portfolio application, while the API Gym provides smaller projects where backend concepts can be practised repeatedly and understood in isolation.
 
 ## Learning Approach
 
@@ -53,7 +53,7 @@ The goal is not simply to complete each project. The goal is to understand the c
 
 Challenges are a core part of this repository.
 
-Exercises will include:
+Exercises include:
 
 - Completing missing controller actions
 - Building endpoints from written requirements
@@ -65,13 +65,13 @@ Exercises will include:
 - Writing successful and unsuccessful test cases
 - Explaining implementation decisions
 - Refactoring working code into a cleaner structure
-- Answering interview-style questions about the completed work
+- Answering interview-style questions about completed work
 
-Difficulty will increase gradually as understanding improves.
+Difficulty increases gradually as understanding improves.
 
-When a concept is not yet comfortable, progression will pause. The concept will be revisited through smaller examples, recall questions, debugging tasks, endpoint extensions, and unit-test challenges until it can be implemented and explained with confidence.
+When a concept is not yet comfortable, progression pauses. The concept is revisited through smaller examples, recall questions, debugging tasks, endpoint extensions, and unit-test challenges until it can be implemented and explained with confidence.
 
-New topics will not be introduced simply because a planned folder has been reached. Progression is based on demonstrated understanding.
+New topics are not introduced simply because a planned folder has been reached. Progression is based on demonstrated understanding.
 
 ## Learning and AI Usage
 
@@ -87,7 +87,7 @@ It is used to:
 - Suggest improvements to structure, security, and testing
 - Reinforce topics that are not yet fully understood
 
-AI-powered inline code prediction and automatic code completion are disabled during the learning exercises.
+AI-powered inline code prediction and automatic code completion are disabled during learning exercises.
 
 Code and tests are typed and worked through manually so that the underlying patterns are understood rather than accepted through automatic prediction.
 
@@ -95,18 +95,21 @@ When a concept is completely new, a small guided example may be provided first. 
 
 The aim is to become capable of explaining, implementing, testing, and debugging each feature without relying on automatically generated solutions.
 
-## Planned Repository Structure
+## Repository Structure
 
 ```text
 dotnet-api-gym
 │
 ├── 01-basic-rest-api
+├── BasicRestApi.Tests
 ├── 02-ef-core-relationships
 ├── 03-jwt-auth-user-owned-data
 ├── 04-roles-and-admin-access
 ├── 05-private-messaging-api
 ├── 06-refresh-tokens
 ├── 07-service-layer-and-clean-architecture-basics
+├── CHALLENGES.md
+├── DotnetApiGym.sln
 └── README.md
 ```
 
@@ -118,64 +121,139 @@ New projects will be added as the concepts in the previous project become comfor
 
 **Status:** In progress
 
-The first project introduces the structure and behaviour of a controller-based ASP.NET Core Web API.
+The first project introduces the structure, behaviour, architecture, and testing of a controller-based ASP.NET Core Web API.
 
-Current topics include:
+Implemented topics include:
 
 - Creating a .NET solution
 - Creating a controller-based ASP.NET Core Web API
-- Understanding the purpose of `Program.cs`
-- Understanding the application entry point
-- Registering controller support
-- Mapping controller routes
+- Understanding `Program.cs` and the application entry point
+- Registering and mapping controllers
 - Attribute routing
-- Creating a controller
-- Handling an HTTP `GET` request
-- Understanding `IActionResult`
-- Understanding `ActionResult<T>`
-- Returning `200 OK`
-- Returning JSON data
-- Understanding OpenAPI
-- Configuring Swagger UI
-- Understanding `launchSettings.json`
-- Running and building through Visual Studio and the .NET CLI
+- HTTP methods
+- HTTP status codes
+- `IActionResult`
+- `ActionResult<T>`
+- Structured models
+- Request DTOs
+- Response DTOs
+- Request validation
+- Automatic validation responses with `[ApiController]`
+- Complete CRUD operations
+- Dependency injection
+- Service interfaces
+- Service implementations
+- Separating controller and service responsibilities
+- Singleton, scoped, and transient service lifetimes
+- xUnit test projects
+- Arrange, Act, Assert
+- `[Fact]` and `[Theory]`
+- Testing successful and unsuccessful service behaviour
+- Test isolation
+- Running builds and tests through Visual Studio and the .NET CLI
+- OpenAPI and Swagger UI
 
-Current endpoint:
+#### Current Endpoints
 
 ```http
-GET /api/games
+GET    /api/games
+GET    /api/games/{id}
+POST   /api/games
+PUT    /api/games/{id}
+DELETE /api/games/{id}
 ```
 
-Example response:
+#### Example Response
 
 ```json
-[
-  "Cyberpunk 2077",
-  "The Witcher 3",
-  "Crimson Desert"
-]
+{
+  "id": 2,
+  "title": "Cyberpunk 2077",
+  "genre": "Action RPG",
+  "releaseYear": 2020
+}
 ```
 
-Upcoming work:
+#### Current Architecture
 
-- Replace plain strings with a structured `Game` model
-- Retrieve a game by ID
-- Use route parameters
-- Return `404 Not Found` when a game does not exist
-- Add `POST`, `PUT`, and `DELETE` endpoints
-- Introduce request and response DTOs
-- Add validation
-- Create an xUnit test project
-- Learn Arrange, Act, Assert
-- Write controller unit tests
-- Test successful and unsuccessful responses
+```text
+HTTP request
+    ↓
+GamesController
+    ↓
+IGameService
+    ↓
+GameService
+    ↓
+In-memory game collection
+```
+
+The controller is responsible for:
+
+- Receiving HTTP input
+- Mapping request DTOs into models
+- Calling the service
+- Mapping models into response DTOs
+- Returning the appropriate HTTP status code
+
+The service is responsible for:
+
+- Managing the in-memory game collection
+- Retrieving games
+- Generating IDs
+- Creating games
+- Updating games
+- Deleting games
+
+#### HTTP Responses
+
+The current endpoints use the following status codes:
+
+```text
+200 OK           Request succeeded and response data is returned
+201 Created      A new game was successfully created
+204 No Content   An update or deletion succeeded without a response body
+400 Bad Request  Request validation failed
+404 Not Found    A game with the requested ID does not exist
+```
+
+#### Current Test Coverage
+
+`GameService` unit tests currently cover:
+
+- Returning the seeded games
+- Confirming each expected seeded game is present
+- Retrieving an existing game
+- Returning `null` for a missing game
+- Creating a game
+- Generating a new game ID
+- Preserving submitted game properties
+- Confirming a created game is stored
+- Updating an existing game
+- Confirming updated properties are stored
+- Returning `false` when updating a missing game
+- Deleting an existing game
+- Confirming a deleted game can no longer be retrieved
+- Returning `false` when deleting a missing game
+
+#### Upcoming Work
+
+- Unit-test `GamesController`
+- Mock `IGameService`
+- Test controller HTTP result types
+- Test successful and unsuccessful controller responses
+- Add API integration tests
+- Build another controller from written acceptance criteria
 - Complete extension and debugging challenges
 
 ### 02 — EF Core Relationships
 
+**Status:** Planned
+
 Planned topics:
 
 - `DbContext`
+- `DbSet`
 - Entities
 - Primary keys
 - Foreign keys
@@ -183,10 +261,15 @@ Planned topics:
 - Database migrations
 - SQL Server
 - Asynchronous EF Core operations
+- `async` and `await`
+- Cancellation tokens
 - Loading related data
+- Tracking and `AsNoTracking`
 - Database testing decisions
 
 ### 03 — JWT Authentication and User-Owned Data
+
+**Status:** Planned
 
 Planned topics:
 
@@ -203,16 +286,21 @@ Planned topics:
 
 ### 04 — Roles and Admin Access
 
+**Status:** Planned
+
 Planned topics:
 
 - User and Admin roles
 - Role claims
 - Role-based authorization
 - Admin-only endpoints
-- Forbidden and unauthorized responses
+- `401 Unauthorized`
+- `403 Forbidden`
 - Authorization testing
 
 ### 05 — Private Messaging API
+
+**Status:** Planned
 
 Planned topics:
 
@@ -227,6 +315,8 @@ Planned topics:
 
 ### 06 — Refresh Tokens
 
+**Status:** Planned
+
 Planned topics:
 
 - Access-token expiration
@@ -239,19 +329,26 @@ Planned topics:
 
 ### 07 — Service Layer and Clean Architecture Basics
 
+**Status:** Planned
+
+This project will expand on the service-layer fundamentals introduced in the Basic REST API.
+
 Planned topics:
 
 - Controller responsibilities
-- Service classes
+- Application services
 - Interfaces
 - Dependency injection
 - Separation of concerns
 - Mocking dependencies
+- Repository patterns
 - Unit tests
 - Integration tests
 - Cleaner backend organisation
 - Centralised error handling
 - Logging
+- Configuration
+- Maintainable project boundaries
 
 ## Development Requirements
 
@@ -275,15 +372,21 @@ Run the Basic REST API:
 dotnet run --project ./01-basic-rest-api/BasicRestApi.csproj --launch-profile https
 ```
 
-Run all tests once test projects have been introduced:
+Run all tests:
 
 ```bash
 dotnet test DotnetApiGym.sln
 ```
 
+Run only the `GameServiceTests` class:
+
+```bash
+dotnet test DotnetApiGym.sln --filter "FullyQualifiedName~BasicRestApi.Tests.Services.GameServiceTests"
+```
+
 ## Local API Documentation
 
-Swagger UI is available while running in the Development environment:
+Swagger UI is available while the API is running in the Development environment:
 
 ```text
 https://localhost:7123/swagger
@@ -300,15 +403,28 @@ Swagger UI provides one page for viewing and testing the endpoints exposed by al
 - [x] Reviewed the application startup flow in `Program.cs`
 - [x] Created `GET /api/games`
 - [x] Added a structured `Game` model
-- [x] Updated the endpoint to return `ActionResult<List<Game>>`
 - [x] Returned structured game data using `200 OK`
 - [x] Added OpenAPI generation and Swagger UI
-- [x] Completed the first structured-data challenge
-- [x] Add an endpoint for retrieving a game by ID
-- [x] Return `404 Not Found` when a game does not exist
-- [x] Add complete CRUD endpoints
-- [x] Introduce DTOs and validation
-- [x] Extract game logic into a service
-- [x] Use dependency injection in the games controller
-- [ ] Add the first xUnit test project
-- [ ] Write and run the first unit tests
+- [x] Added an endpoint for retrieving a game by ID
+- [x] Returned `404 Not Found` when a game does not exist
+- [x] Added complete CRUD endpoints
+- [x] Added request DTOs
+- [x] Added response DTOs
+- [x] Added request validation
+- [x] Returned `201 Created` after creating a game
+- [x] Returned `204 No Content` after successful updates and deletions
+- [x] Extracted game logic into `GameService`
+- [x] Added the `IGameService` abstraction
+- [x] Registered the game service with dependency injection
+- [x] Injected `IGameService` into `GamesController`
+- [x] Learned singleton, scoped, and transient service lifetimes
+- [x] Added the first xUnit test project
+- [x] Learned Arrange, Act, Assert
+- [x] Used `[Fact]` and `[Theory]`
+- [x] Added unit tests for successful and unsuccessful `GameService` behaviour
+- [x] Confirmed all current tests pass
+- [ ] Add unit tests for `GamesController`
+- [ ] Mock `IGameService`
+- [ ] Add integration tests for the Games API
+- [ ] Build a second controller from written acceptance criteria
+- [ ] Replace the in-memory collection with EF Core
