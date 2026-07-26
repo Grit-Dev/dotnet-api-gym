@@ -102,5 +102,72 @@ namespace BasicRestApi.Tests.Services
             Assert.Equal(retrievedGame.Genre, newGame.Genre);
             Assert.Equal(retrievedGame.ReleaseYear, newGame.ReleaseYear);
         }
+
+        [Fact]
+        public void UpdateGame_WhenCalled_ExistingIdShouldReturnTrue()
+        {
+            // Arrange
+            var updateGame = new Game
+            {
+                Id = 1,
+                Title = "Test",
+                Genre = "Test2",
+                ReleaseYear = 2026
+            };
+
+            // Act
+            var actual = _gameService.UpdateGame(updateGame.Id, updateGame);
+
+            // Assert
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void UpdateGame_WhenCalled_NonExistingIdShouldReturnFalse()
+        {
+            // Arrange
+            var updateGame = new Game
+            {
+                Id = 999,
+                Title = "Test",
+                Genre = "Test2",
+                ReleaseYear = 2026
+            };
+
+            // Act
+
+            var actual = _gameService.UpdateGame(updateGame.Id, updateGame);
+
+            // Assert
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void UpdateGame_WhenCalled_ShouldReturnUpdatedProperties()
+        {
+            // Arrange
+            var updatedGame = new Game
+            {
+                Id = 1,
+                Title = "Witcher 4",
+                Genre = "ACTION RPG",
+                ReleaseYear = 2029
+            };
+
+            // Act
+            var isSuccessful = _gameService.UpdateGame(updatedGame.Id, updatedGame);
+            var gameFound = _gameService.GetGameById(updatedGame.Id);
+
+            // Assert
+            Assert.True(isSuccessful);
+            Assert.NotNull(gameFound);
+            Assert.Equal(updatedGame.Id, gameFound.Id);
+            Assert.Equal(updatedGame.Title, gameFound.Title);
+            Assert.Equal(updatedGame.Genre, gameFound.Genre);
+            Assert.Equal(updatedGame.ReleaseYear, gameFound.ReleaseYear);
+        }
+
+
+
     }
 }
