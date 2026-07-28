@@ -191,6 +191,68 @@ namespace BasicRestApi.Tests.Services
                 Times.Once);
         }
 
+        [Fact]
+        public void UpdateGame_WhenGameExists_ReturnsNoContent()
+        {
+            // Arrange
+            const int gameId = 1;
+
+            var request = new UpdateGameRequest
+            {
+                Title = "Cyberpunk 2077 Updated",
+                Genre = "Action RPG",
+                ReleaseYear = 2021
+            };
+
+            _gameServiceMock
+                .Setup(service => service.UpdateGame(
+                    gameId,
+                    It.IsAny<Game>()))
+                .Returns(true);
+
+            // Act
+            var result = _controller.UpdateGame(gameId, request);
+
+            // Assert
+            // Confirm the controller returned 204 No Content.
+            Assert.IsType<NoContentResult>(result);
+
+            // Verify UpdateGame was called exactly once.
+            _gameServiceMock .Verify(
+                service => service.UpdateGame(gameId, It.IsAny<Game>()),
+                Times.Once);
+        }
+
+        [Fact]
+        public void UpdateGame_WhenGameDoesNotExists_ReturnsNotFound()
+        {
+            // Arrange
+            const int gameId = 1;
+
+            var request = new UpdateGameRequest
+            {
+                Title = "Cyberpunk 2077 Updated",
+                Genre = "Action RPG",
+                ReleaseYear = 2021
+            };
+
+            _gameServiceMock.Setup(
+            service => service.UpdateGame(gameId, It.IsAny<Game>()))
+            .Returns(false);
+
+            // Act 
+            var result = _controller.UpdateGame(gameId, request);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+
+            _gameServiceMock.Verify(
+                service => service.UpdateGame(gameId, It.IsAny<Game>()),
+                Times.Once);
+                
+        }
+
+
 
 
     }
