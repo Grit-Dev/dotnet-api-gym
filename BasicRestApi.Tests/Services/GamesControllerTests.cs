@@ -32,10 +32,10 @@ namespace BasicRestApi.Tests.Services
                 .Returns((Game?)null);
 
             // Act
-            var result = _controller?.GetGameById(missingGameId);
+            var result = _controller.GetGameById(missingGameId);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result?.Result);
+            Assert.IsType<NotFoundResult>(result.Result);
 
             _gameServiceMock.Verify(
                 service => service.GetGameById(missingGameId),Times.Once);
