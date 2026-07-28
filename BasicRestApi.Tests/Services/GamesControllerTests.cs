@@ -142,8 +142,29 @@ namespace BasicRestApi.Tests.Services
                 Assert.Equal(games[outterIndex].ReleaseYear, response[outterIndex].ReleaseYear);
             }
 
-            _gameServiceMock .Verify(
+            _gameServiceMock.Verify(
                 service => service.GetGames(), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteGame_WhenGameExists_ReturnsNoContent()
+        {
+            // Arrange
+            const int gameId = 1;
+
+            _gameServiceMock.Setup(
+                service => service.DeleteGame(gameId))
+                .Returns(true);
+
+            // Act 
+            var result = _controller.DeleteGame(gameId);
+
+            // Assert
+
+            Assert.IsType<NoContentResult>(result);
+
+            _gameServiceMock.Verify
+                (service => service.DeleteGame(gameId));
         }
 
     }
