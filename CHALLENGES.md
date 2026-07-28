@@ -365,19 +365,19 @@ The controller tests should verify that service outcomes are translated into the
 
 ### Completion Checklist
 
-- [ ] Install Moq
-- [ ] Create `GamesControllerTests`
-- [ ] Explain why the real `GameService` is not used
-- [ ] Create a mock `IGameService`
-- [ ] Construct `GamesController` with the mock
-- [ ] Test GET all
-- [ ] Test GET by ID success
-- [ ] Test GET by ID failure
-- [ ] Test POST
-- [ ] Test PUT success
-- [ ] Test PUT failure
-- [ ] Test DELETE success
-- [ ] Test DELETE failure
-- [ ] Verify DTO mapping
-- [ ] Verify service calls
-- [ ] Run all tests successfully
+- [x] Install Moq
+- [x] Create `GamesControllerTests`
+- [x] Explain why the real `GameService` is not used
+- [x] Create a mock `IGameService`
+- [x] Construct `GamesController` with the mock
+- [x] Test GET all
+- [x] Test GET by ID success
+- [x] Test GET by ID failure
+- [x] Test POST
+- [x] Test PUT success
+- [x] Test PUT failure
+- [x] Test DELETE success
+- [x] Test DELETE failure
+- [x] Verify DTO mapping
+- [x] Verify service calls
+- [x] Run all tests successfully
