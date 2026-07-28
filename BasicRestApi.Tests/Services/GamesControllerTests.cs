@@ -164,8 +164,34 @@ namespace BasicRestApi.Tests.Services
             Assert.IsType<NoContentResult>(result);
 
             _gameServiceMock.Verify
-                (service => service.DeleteGame(gameId));
+                (service => service.DeleteGame(gameId),
+                Times.Once);
         }
+
+        [Fact]
+        public void DeleteGame_WhenGameDoesNotExist_ReturnsNotFound()
+        {
+            // Arrange
+            const int gameId = 999;
+
+            _gameServiceMock.Setup(
+                service => service.DeleteGame(gameId))
+                .Returns(false);
+
+            // Act
+
+            var result = _controller.DeleteGame(gameId);
+
+            // Assert
+
+            Assert.IsType<NotFoundResult>(result);
+
+            _gameServiceMock.Verify(
+                service => service.DeleteGame(gameId),
+                Times.Once);
+        }
+
+
 
     }
 }
