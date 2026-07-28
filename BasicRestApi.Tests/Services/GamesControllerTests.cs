@@ -98,15 +98,13 @@ namespace BasicRestApi.Tests.Services
             // Arrange
             var games = new List<Game>
             {
-                new Game
-                {
+                new() {
                     Id = 1,
                     Title = "Cyberpunk 2077",
                     Genre = "Action RPG",
                     ReleaseYear = 2020
                 },
-                new Game
-                {
+                new() {
                     Id = 2,
                     Title = "The Witcher 3",
                     Genre = "Action RPG",
@@ -134,11 +132,19 @@ namespace BasicRestApi.Tests.Services
             // The controller should have mapped the Game objects into GameResponse objects.
             var response = Assert.IsType<List<GameResponse>>(okResult.Value);
 
-            // TODO: Assert that response contains 2 items.
+            Assert.Equal(2, response.Count);
 
-            // TODO: Assert that the first response has the expected Id and Title.
+            for (int outterIndex = 0; outterIndex <= response.Count -1; outterIndex++)
+            {
+                Assert.Equal(games[outterIndex].Id, response[outterIndex].Id);
+                Assert.Equal(games[outterIndex].Title, response[outterIndex].Title);
+                Assert.Equal(games[outterIndex].Genre, response[outterIndex].Genre);
+                Assert.Equal(games[outterIndex].Id, response[outterIndex].Id);
+                Assert.Equal(games[outterIndex].ReleaseYear, response[outterIndex].ReleaseYear);
+            }
 
-            // TODO: Verify that GetGames was called exactly once.
+            _gameServiceMock .Verify(
+                service => service.GetGames(), Times.Once);
         }
 
     }
