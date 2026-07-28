@@ -2,6 +2,7 @@
 using BasicRestApi.Dtos;
 using BasicRestApi.Models;
 using BasicRestApi.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -224,10 +225,10 @@ namespace BasicRestApi.Tests.Services
         }
 
         [Fact]
-        public void UpdateGame_WhenGameDoesNotExists_ReturnsNotFound()
+        public void UpdateGame_WhenGameDoesNotExist_ReturnsNotFound()
         {
             // Arrange
-            const int gameId = 1;
+            const int gameId = 999;
 
             var request = new UpdateGameRequest
             {
@@ -252,8 +253,57 @@ namespace BasicRestApi.Tests.Services
                 
         }
 
+        [Fact]
+        public void CreateGame_WhenRequestIsValid_ReturnsCreatedAtActionWithGameResponse()
+        {
+            // Arrange
+            var request = new CreateGameRequest
+            {
+                Title = "Elden Ring",
+                Genre = "Action RPG",
+                ReleaseYear = 2022
+            };
 
+            var createdGame = new Game
+            {
+                Id = 3,
+                Title = request.Title,
+                Genre = request.Genre,
+                ReleaseYear = request.ReleaseYear
+            };
 
+            // When the controller sends any Game to CreateGame,
+            // return the created game with its generated ID.
+            _gameServiceMock
+                .Setup(service => service.CreateGame(It.IsAny<Game>()))
+                .Returns(createdGame);
 
+            // Act
+            var result = _controller.CreateGame(request);
+
+            // Assert
+            var createdResult =
+                Assert.IsType<CreatedAtActionResult>(result.Result);
+
+            var response =
+                Assert.IsType<GameResponse>(createdResult.Value);
+
+            Assert.Equal(createdGame.Id, response.Id);
+            Assert.Equal(createdGame.Title, response.Title);
+            Assert.Equal(createdGame.Genre, response.Genre);
+            Assert.Equal(createdGame.ReleaseYear, response.ReleaseYear);
+
+            Assert.Equal(
+                createdGame.Id,
+                createdResult.RouteValues!["id"]);
+
+            _gameServiceMock.Verify(
+                service => service.CreateGame(It.IsAny<Game>()),
+                Times.Once());
+
+            Assert.Equal(
+            nameof(GamesController.GetGameById),
+            createdResult.ActionName);
+        }
     }
 }
