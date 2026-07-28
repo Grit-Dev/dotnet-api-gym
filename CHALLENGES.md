@@ -322,3 +322,62 @@ Each test should create a fresh `GameService`, perform one operation, and verify
 - [x] Test deleting a missing game
 - [x] Confirm every test has isolated state
 - [x] Run all tests successfully
+
+
+## Challenge 10 — Unit-Test GamesController
+
+**Status:** In progress
+
+### Goal
+
+Learn how to unit-test controller behaviour by replacing the real `IGameService` with a mocked dependency.
+
+The controller tests should verify that service outcomes are translated into the correct HTTP results and response DTOs.
+
+### Concepts
+
+- Controller unit testing
+- Mocking dependencies
+- `Mock<IGameService>`
+- Configuring mock behaviour with `Setup`
+- Returning test data with `Returns`
+- `OkObjectResult`
+- `NotFoundResult`
+- `CreatedAtActionResult`
+- `NoContentResult`
+- Inspecting response DTOs
+- Verifying service calls
+- Arrange, Act, Assert
+
+### Controller Behaviours to Test
+
+- GET all returns `200 OK`
+- GET all returns mapped `GameResponse` objects
+- GET by ID returns `200 OK` when the game exists
+- GET by ID returns `404 Not Found` when the game does not exist
+- POST returns `201 Created`
+- POST returns the created response DTO
+- POST uses the generated ID in the route values
+- PUT returns `204 No Content` when successful
+- PUT returns `404 Not Found` when the game does not exist
+- DELETE returns `204 No Content` when successful
+- DELETE returns `404 Not Found` when the game does not exist
+
+### Completion Checklist
+
+- [ ] Install Moq
+- [ ] Create `GamesControllerTests`
+- [ ] Explain why the real `GameService` is not used
+- [ ] Create a mock `IGameService`
+- [ ] Construct `GamesController` with the mock
+- [ ] Test GET all
+- [ ] Test GET by ID success
+- [ ] Test GET by ID failure
+- [ ] Test POST
+- [ ] Test PUT success
+- [ ] Test PUT failure
+- [ ] Test DELETE success
+- [ ] Test DELETE failure
+- [ ] Verify DTO mapping
+- [ ] Verify service calls
+- [ ] Run all tests successfully
