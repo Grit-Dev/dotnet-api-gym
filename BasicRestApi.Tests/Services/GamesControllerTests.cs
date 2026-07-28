@@ -2,7 +2,6 @@
 using BasicRestApi.Dtos;
 using BasicRestApi.Models;
 using BasicRestApi.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
