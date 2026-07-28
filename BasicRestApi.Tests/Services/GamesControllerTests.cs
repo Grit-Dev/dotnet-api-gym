@@ -139,7 +139,6 @@ namespace BasicRestApi.Tests.Services
                 Assert.Equal(games[outterIndex].Id, response[outterIndex].Id);
                 Assert.Equal(games[outterIndex].Title, response[outterIndex].Title);
                 Assert.Equal(games[outterIndex].Genre, response[outterIndex].Genre);
-                Assert.Equal(games[outterIndex].Id, response[outterIndex].Id);
                 Assert.Equal(games[outterIndex].ReleaseYear, response[outterIndex].ReleaseYear);
             }
 
