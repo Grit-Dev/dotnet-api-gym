@@ -2,12 +2,15 @@
 using BasicRestApi.Dtos;
 using BasicRestApi.Models;
 using BasicRestApi.Services;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 namespace BasicRestApi.Tests.Services
 {
+    // Mental Note:
+    //    result ActionResult<GameResponse>
+    //    └── result.Result OkObjectResult — represents 200 OK
+    //        └── okResult.Value GameResponse — the response body
     public class GamesControllerTests
     {
         private readonly Mock<IGameService> _gameServiceMock;
@@ -87,6 +90,55 @@ namespace BasicRestApi.Tests.Services
             _gameServiceMock.Verify(
                 service => service.GetGameById(gameId), Times.Once);
 
+        }
+
+        [Fact]
+        public void GetGames_WhenGamesExist_ReturnsOkWithGameResponses()
+        {
+            // Arrange
+            var games = new List<Game>
+            {
+                new Game
+                {
+                    Id = 1,
+                    Title = "Cyberpunk 2077",
+                    Genre = "Action RPG",
+                    ReleaseYear = 2020
+                },
+                new Game
+                {
+                    Id = 2,
+                    Title = "The Witcher 3",
+                    Genre = "Action RPG",
+                    ReleaseYear = 2015
+                }
+            };
+
+            // Set up the mocked service so GetGames returns our test games.
+            _gameServiceMock
+                .Setup(service => service.GetGames())
+                .Returns(games);
+
+            // Act
+
+            // Call the real controller method.
+            // result will contain the controller's HTTP-style response.
+            var result = _controller.GetGames();
+
+            // Assert
+
+            // Confirm the controller returned Ok(...), representing 200 OK.
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+
+            // Extract the response body from the 200 OK result.
+            // The controller should have mapped the Game objects into GameResponse objects.
+            var response = Assert.IsType<List<GameResponse>>(okResult.Value);
+
+            // TODO: Assert that response contains 2 items.
+
+            // TODO: Assert that the first response has the expected Id and Title.
+
+            // TODO: Verify that GetGames was called exactly once.
         }
 
     }
