@@ -425,7 +425,7 @@ Swagger UI provides one page for viewing and testing the endpoints exposed by al
 - [x] Confirmed all current tests pass
 - [x] Add unit tests for `GamesController`
 - [x] Mock `IGameService`
-- [ ] Add integration tests for the Games API
+- [x] Add integration tests for the Games API
 - [ ] Build a second controller from written acceptance criteria
 - [ ] Replace the in-memory collection with EF Core
 - [x] Add unit tests for `GamesController`
