@@ -6,12 +6,12 @@ using System.Net.Http.Json;
 namespace BasicRestApi.Tests.Integration
 {
     // Starts the real api in memory WAF
-    public class GameApiTests : IClassFixture<WebApplicationFactory<Program>>
+    public class GamesApiTests : IClassFixture<WebApplicationFactory<Program>>
     {
         // Sends a real HTTP Request
         private readonly HttpClient _httpClient;
 
-        public GameApiTests(WebApplicationFactory<Program> factory)
+        public GamesApiTests(WebApplicationFactory<Program> factory)
         {
             _httpClient = factory.CreateClient();
         }
@@ -48,26 +48,26 @@ namespace BasicRestApi.Tests.Integration
         [Fact]
         public async Task GetGamesById_WhenGameExists_ReturnsOkWithGame()
         {
-            var allGamesFromResponse = await _httpClient.GetAsync("api/games");
+            var allGamesFromResponse = await _httpClient.GetAsync("/api/games");
 
             var games = await allGamesFromResponse.Content.ReadFromJsonAsync<List<GameResponse>>();
 
             Assert.NotNull(games);
             Assert.NotEmpty(games);
 
-            var expectedGames = games[0];
+            var expectedGame = games[0];
 
-            var response = await _httpClient.GetAsync($"/api/games/{expectedGames.Id}");
+            var response = await _httpClient.GetAsync($"/api/games/{expectedGame.Id}");
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
             var actualGame = await response.Content.ReadFromJsonAsync<GameResponse>();
 
             Assert.NotNull(actualGame);
-            Assert.Equal(expectedGames.Id, actualGame.Id);
-            Assert.Equal(expectedGames.Title, actualGame.Title);
-            Assert.Equal(expectedGames.Genre, actualGame.Genre);
-            Assert.Equal(expectedGames.ReleaseYear, actualGame.ReleaseYear);
+            Assert.Equal(expectedGame.Id, actualGame.Id);
+            Assert.Equal(expectedGame.Title, actualGame.Title);
+            Assert.Equal(expectedGame.Genre, actualGame.Genre);
+            Assert.Equal(expectedGame.ReleaseYear, actualGame.ReleaseYear);
         }
 
         [Fact]
@@ -94,9 +94,9 @@ namespace BasicRestApi.Tests.Integration
 
             Assert.NotNull(respone.Headers.Location);
 
-            var getResposne = await _httpClient.GetAsync(respone.Headers.Location);
+            var getResponse = await _httpClient.GetAsync(respone.Headers.Location);
 
-            Assert.Equal(HttpStatusCode.OK, getResposne.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, getResponse.StatusCode);
 
         }
         
