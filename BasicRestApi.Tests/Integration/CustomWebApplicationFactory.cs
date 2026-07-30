@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 // Scaffolding built to make Integration easier to test
+// See Docs: 
+// https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-9.0&pivots=xunit
+// https://learn.microsoft.com/en-us/ef/core/testing/testing-without-the-database
 namespace BasicRestApi.Tests.Integration
 {
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
