@@ -1,12 +1,54 @@
-﻿using BasicRestApi.Models;
+﻿using BasicRestApi.Data;
+using BasicRestApi.Models;
 using BasicRestApi.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace BasicRestApi.Tests.Services
 {
     public class GameServiceTests
     {
+        private readonly GameDbContext _gameDbContext;
+        private readonly IGameService _gameService;
 
-        private readonly GameService _gameService = new();
+
+        public GameServiceTests()
+        {
+            var options =
+                new DbContextOptionsBuilder<GameDbContext>()
+                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                    .Options;
+
+            _gameDbContext = new GameDbContext(options);
+
+            _gameDbContext.Games.AddRange(
+                new Game
+                {
+                    Id = 1,
+                    Title = "Witcher 3",
+                    Genre = "Action RPG",
+                    ReleaseYear = 2020
+                },
+                new Game
+                {
+                    Id = 2,
+                    Title = "Cyberpunk 2077",
+                    Genre = "Action RPG",
+                    ReleaseYear = 2020
+                },
+                new Game
+                {
+                    Id = 3,
+                    Title = "Crimson Desert",
+                    Genre = "Action RPG",
+                    ReleaseYear = 2020
+                });
+
+            _gameDbContext.SaveChanges();
+
+            _gameService = new GameService(_gameDbContext);
+        }
+
+
 
         [Theory]
         [InlineData(1, "Witcher 3", "Action RPG", 2020)]

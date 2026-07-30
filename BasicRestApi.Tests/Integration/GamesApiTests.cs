@@ -1,17 +1,16 @@
 ﻿using BasicRestApi.Dtos;
-using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using System.Net.Http.Json;
 
 namespace BasicRestApi.Tests.Integration
 {
     // Starts the real api in memory WAF
-    public class GamesApiTests : IClassFixture<WebApplicationFactory<Program>>
+    public class GamesApiTests : IClassFixture<CustomWebApplicationFactory>
     {
         // Sends a real HTTP Request
         private readonly HttpClient _httpClient;
 
-        public GamesApiTests(WebApplicationFactory<Program> factory)
+        public GamesApiTests(CustomWebApplicationFactory factory)
         {
             _httpClient = factory.CreateClient();
         }
