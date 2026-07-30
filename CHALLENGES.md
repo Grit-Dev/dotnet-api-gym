@@ -381,3 +381,28 @@ The controller tests should verify that service outcomes are translated into the
 - [x] Verify DTO mapping
 - [x] Verify service calls
 - [x] Run all tests successfully
+
+# Challenge 13: Add a Developer to Games
+
+## User story
+
+As an API user, I want each game to include its developer so that I can see which studio created the game.
+
+## Data contract
+
+A game must contain a `Developer` property.
+
+- Type: `string`
+- Required: yes
+- Maximum length: 100 characters
+- Cannot be null, empty, or whitespace
+
+Example request:
+
+```json
+{
+  "title": "Cyberpunk 2077",
+  "genre": "Action RPG",
+  "releaseYear": 2020,
+  "developer": "CD Projekt Red"
+}

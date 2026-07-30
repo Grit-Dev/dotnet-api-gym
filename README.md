@@ -429,3 +429,7 @@ Swagger UI provides one page for viewing and testing the endpoints exposed by al
 - [ ] Build a second controller from written acceptance criteria
 - [ ] Replace the in-memory collection with EF Core
 - [x] Add unit tests for `GamesController`
+
+## Current Challenge
+
+[Challenge 13: Add a Developer to Games](Challenges.md#challenge-13-add-a-developer-to-games)
