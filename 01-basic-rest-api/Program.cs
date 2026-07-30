@@ -16,11 +16,11 @@ namespace BasicRestApi
             // Register OpenAPI document generation.
             builder.Services.AddOpenApi();
 
-            
+
+            var databasePath =
+            Path.Combine(builder.Environment.ContentRootPath, "games.db");
             builder.Services.AddDbContext<GameDbContext>(options =>
-            options.UseSqlite(
-            builder.Configuration.GetConnectionString("GamesDatabase")
-            ));
+                options.UseSqlite($"Data Source={databasePath}"));
 
             builder.Services.AddScoped<IGameService, GameService>();
 
