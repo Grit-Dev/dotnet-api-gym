@@ -1,4 +1,6 @@
-﻿using BasicRestApi.Services;
+﻿using BasicRestApi.Data;
+using BasicRestApi.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace BasicRestApi
 {
@@ -14,7 +16,13 @@ namespace BasicRestApi
             // Register OpenAPI document generation.
             builder.Services.AddOpenApi();
 
-            builder.Services.AddSingleton<IGameService, GameService>();
+
+            var databasePath =
+            Path.Combine(builder.Environment.ContentRootPath, "games.db");
+            builder.Services.AddDbContext<GameDbContext>(options =>
+                options.UseSqlite($"Data Source={databasePath}"));
+
+            builder.Services.AddScoped<IGameService, GameService>();
 
             var app = builder.Build();
 
