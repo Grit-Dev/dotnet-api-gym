@@ -20,7 +20,8 @@ namespace BasicRestApi.Services
             {
                 Title = game.Title,
                 Genre = game.Genre,
-                ReleaseYear = game.ReleaseYear
+                ReleaseYear = game.ReleaseYear,
+                Developer = game.Developer
             };
 
             _context.Games.Add(createGame);
@@ -61,6 +62,7 @@ namespace BasicRestApi.Services
             gameFound.Title = game.Title;
             gameFound.Genre = game.Genre;
             gameFound.ReleaseYear = game.ReleaseYear;
+            gameFound.Developer = game.Developer;
 
             _context.SaveChanges();
 
