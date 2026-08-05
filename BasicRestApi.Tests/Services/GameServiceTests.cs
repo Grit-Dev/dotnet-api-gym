@@ -26,21 +26,24 @@ namespace BasicRestApi.Tests.Services
                     Id = 1,
                     Title = "Witcher 3",
                     Genre = "Action RPG",
-                    ReleaseYear = 2020
+                    ReleaseYear = 2020,
+                    Developer = "CD PROJEKT"
                 },
                 new Game
                 {
                     Id = 2,
                     Title = "Cyberpunk 2077",
                     Genre = "Action RPG",
-                    ReleaseYear = 2020
+                    ReleaseYear = 2020,
+                    Developer = "CD PROJEKT"
                 },
                 new Game
                 {
                     Id = 3,
                     Title = "Crimson Desert",
                     Genre = "Action RPG",
-                    ReleaseYear = 2020
+                    ReleaseYear = 2020,
+                    Developer = "Pearl Abyss"
                 });
 
             _gameDbContext.SaveChanges();
@@ -108,7 +111,8 @@ namespace BasicRestApi.Tests.Services
             {
                 Title = "Metal Gear Solid",
                 Genre = "Tactical Espionage",
-                ReleaseYear = 1993
+                ReleaseYear = 1993,
+                Developer = "Konami + Hideo Kojima"
             };
 
             // Act
@@ -120,6 +124,7 @@ namespace BasicRestApi.Tests.Services
             Assert.Equal(newGame.Title, result.Title);
             Assert.Equal(newGame.Genre, result.Genre);
             Assert.Equal(newGame.ReleaseYear, result.ReleaseYear);
+            Assert.Equal(newGame.Developer, result.Developer);
         }
 
         [Fact]
@@ -131,6 +136,7 @@ namespace BasicRestApi.Tests.Services
                 Title = "Gray Zone Warfare",
                 Genre = "Extraction Shooter",
                 ReleaseYear = 2022,
+                Developer = "MADFINGER GAMES"
             };
 
             // Act
@@ -144,6 +150,7 @@ namespace BasicRestApi.Tests.Services
             Assert.Equal(newGame.Title, retrievedGame.Title);
             Assert.Equal(newGame.Genre, retrievedGame.Genre);
             Assert.Equal(newGame.ReleaseYear, retrievedGame.ReleaseYear);
+            Assert.Equal(newGame.Developer, retrievedGame.Developer);
         }
 
         [Fact]
@@ -155,7 +162,8 @@ namespace BasicRestApi.Tests.Services
                 Id = 1,
                 Title = "Test",
                 Genre = "Test2",
-                ReleaseYear = 2026
+                ReleaseYear = 2026,
+                Developer = "Hello World"
             };
 
             // Act
@@ -174,7 +182,8 @@ namespace BasicRestApi.Tests.Services
                 Id = 999,
                 Title = "Test",
                 Genre = "Test2",
-                ReleaseYear = 2026
+                ReleaseYear = 2026,
+                Developer = "Hello World"
             };
 
             // Act
@@ -193,7 +202,9 @@ namespace BasicRestApi.Tests.Services
             {
                 Title = "Test",
                 Genre = "Test2",
-                ReleaseYear = 2000
+                ReleaseYear = 2000,
+                Developer = "Gray Fox"
+                
             };
             
             var gameAdded = _gameService.CreateGame(newGame);
@@ -202,7 +213,8 @@ namespace BasicRestApi.Tests.Services
             {
                 Title = "Witcher 4",
                 Genre = "ACTION RPG",
-                ReleaseYear = 2029
+                ReleaseYear = 2029,
+                Developer = "CD PROJEKT"
             };
 
             // Act
@@ -216,6 +228,7 @@ namespace BasicRestApi.Tests.Services
             Assert.Equal(updatedGame.Title, gameFound.Title);
             Assert.Equal(updatedGame.Genre, gameFound.Genre);
             Assert.Equal(updatedGame.ReleaseYear, gameFound.ReleaseYear);
+            Assert.Equal(updatedGame.Developer, gameFound.Developer);
         }
 
         [Fact]
@@ -226,7 +239,8 @@ namespace BasicRestApi.Tests.Services
             {
                 Title = "Test",
                 Genre = "Test",
-                ReleaseYear = 1990
+                ReleaseYear = 1990,
+                Developer = "Test"
             };
 
             var gameCreated = _gameService.CreateGame(newGame);
