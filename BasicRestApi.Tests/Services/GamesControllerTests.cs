@@ -57,7 +57,8 @@ namespace BasicRestApi.Tests.Services
                 Id = gameId,
                 Title = "Cyberpunk 2077",
                 Genre = "Action RPG",
-                ReleaseYear = 2020
+                ReleaseYear = 2020,
+                Developer = "CD PROJEKT"
             };
 
             _gameServiceMock
@@ -86,6 +87,7 @@ namespace BasicRestApi.Tests.Services
             Assert.Equal(game.Title, response.Title);
             Assert.Equal(game.Genre, response.Genre);
             Assert.Equal(game.ReleaseYear, response.ReleaseYear);
+            Assert.Equal(game.Developer, response.Developer);
 
             _gameServiceMock.Verify(
                 service => service.GetGameById(gameId), Times.Once);
@@ -102,13 +104,15 @@ namespace BasicRestApi.Tests.Services
                     Id = 1,
                     Title = "Cyberpunk 2077",
                     Genre = "Action RPG",
-                    ReleaseYear = 2020
+                    ReleaseYear = 2020,
+                    Developer = "CD PROJEKT"
                 },
                 new() {
                     Id = 2,
                     Title = "The Witcher 3",
                     Genre = "Action RPG",
-                    ReleaseYear = 2015
+                    ReleaseYear = 2015,
+                    Developer = "CD PROJEKT"
                 }
             };
 
@@ -140,6 +144,7 @@ namespace BasicRestApi.Tests.Services
                 Assert.Equal(games[outterIndex].Title, response[outterIndex].Title);
                 Assert.Equal(games[outterIndex].Genre, response[outterIndex].Genre);
                 Assert.Equal(games[outterIndex].ReleaseYear, response[outterIndex].ReleaseYear);
+                Assert.Equal(games[outterIndex].Developer, response[outterIndex].Developer);
             }
 
             _gameServiceMock.Verify(
@@ -201,7 +206,8 @@ namespace BasicRestApi.Tests.Services
             {
                 Title = "Cyberpunk 2077 Updated",
                 Genre = "Action RPG",
-                ReleaseYear = 2021
+                ReleaseYear = 2021,
+                Developer = "CD PROJEKT"
             };
 
             _gameServiceMock
@@ -233,7 +239,8 @@ namespace BasicRestApi.Tests.Services
             {
                 Title = "Cyberpunk 2077 Updated",
                 Genre = "Action RPG",
-                ReleaseYear = 2021
+                ReleaseYear = 2021,
+                Developer = "CD PROJEKT"
             };
 
             _gameServiceMock.Setup(
@@ -260,7 +267,8 @@ namespace BasicRestApi.Tests.Services
             {
                 Title = "Elden Ring",
                 Genre = "Action RPG",
-                ReleaseYear = 2022
+                ReleaseYear = 2022,
+                Developer = "CD PROJEKT"
             };
 
             var createdGame = new Game
@@ -268,7 +276,8 @@ namespace BasicRestApi.Tests.Services
                 Id = 3,
                 Title = request.Title,
                 Genre = request.Genre,
-                ReleaseYear = request.ReleaseYear
+                ReleaseYear = request.ReleaseYear,
+                Developer = request.Developer
             };
 
             // When the controller sends any Game to CreateGame,
@@ -291,6 +300,7 @@ namespace BasicRestApi.Tests.Services
             Assert.Equal(createdGame.Title, response.Title);
             Assert.Equal(createdGame.Genre, response.Genre);
             Assert.Equal(createdGame.ReleaseYear, response.ReleaseYear);
+            Assert.Equal(createdGame.Developer, response.Developer);
 
             Assert.Equal(
                 createdGame.Id,

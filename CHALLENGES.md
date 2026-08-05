@@ -1,10 +1,10 @@
-# Basic REST API Challenges
+ï»¿# Basic REST API Challenges
 
 This file records the practical challenges completed during the Basic REST API project.
 
 Each challenge increases gradually in difficulty. A challenge is complete when the implementation works, the required behaviour has been tested, and the code can be explained.
 
-## Challenge 1 — Return Structured Game Data
+## Challenge 1 â€” Return Structured Game Data
 
 **Status:** In Completed
 
@@ -36,7 +36,7 @@ Replace the current list of game-title strings with structured `Game` objects.
 
 
 ##
-## Challenge 2 — Retrieve a Game by ID
+## Challenge 2 â€” Retrieve a Game by ID
 ##
 
 **Status:** Complete
@@ -69,7 +69,7 @@ Create an endpoint that retrieves one game using its unique identifier.
 - [x] Test successful and unsuccessful requests
 - [x] Explain the endpoint behaviour
 
-## Challenge 4 — Update a Game
+## Challenge 4 â€” Update a Game
 
 **Status:** Complete
 
@@ -84,7 +84,7 @@ Update an existing game using its route ID and replacement data from the request
 - Accept updated game data from the JSON request body.
 - Find the existing game using the route ID.
 - Return `404 Not Found` if the game does not exist.
-- Do not allow the request body to change the game’s ID.
+- Do not allow the request body to change the gameâ€™s ID.
 - Update the title, genre, and release year.
 - Return `204 No Content` after a successful update.
 - Confirm the updated game using `GET /api/games/{id}`.
@@ -103,7 +103,7 @@ Update an existing game using its route ID and replacement data from the request
 - [x] Test through Swagger
 - [x] Explain the endpoint behaviour
 
-## Challenge 5 — Delete a Game
+## Challenge 5 â€” Delete a Game
 
 **Status:** Complete
 
@@ -138,7 +138,7 @@ Delete an existing game using its unique identifier.
 - [x] Confirm the deleted game cannot be retrieved
 - [x] Explain the endpoint behaviour
 
-## Challenge 6 — Validate Game Requests
+## Challenge 6 â€” Validate Game Requests
 
 **Status:** Complete
 
@@ -177,7 +177,7 @@ POST /api/games
 - [x] Restrict the title to 100 characters
 - [x] Require the genre
 - [x] Restrict the genre to 50 characters
-- [x] Restrict the release year to 1950–2100
+- [x] Restrict the release year to 1950â€“2100
 - [x] Update POST to accept `CreateGameRequest`
 - [x] Map the create request into a new `Game`
 - [x] Confirm the server generates the game ID
@@ -197,7 +197,7 @@ POST /api/games
 - [x] Explain how `[ApiController]` handles invalid models
 
 
-## Challenge 7 — Game Response DTOs and Mapping
+## Challenge 7 â€” Game Response DTOs and Mapping
 
 **Status:** Complete
 
@@ -231,7 +231,7 @@ Create:
 Dtos/GameResponse.cs
 
 
-### Challenge 8 — Extract a Game Service and Use Dependency Injection
+### Challenge 8 â€” Extract a Game Service and Use Dependency Injection
 
 **Status:** Complete
 
@@ -272,7 +272,7 @@ bool UpdateGame(int id, Game game);
 bool DeleteGame(int id);
 
 
-## Challenge 9 — Unit-Test GameService
+## Challenge 9 â€” Unit-Test GameService
 
 **Status:** Complete
 
@@ -324,7 +324,7 @@ Each test should create a fresh `GameService`, perform one operation, and verify
 - [x] Run all tests successfully
 
 
-## Challenge 10 — Unit-Test GamesController
+## Challenge 10 â€” Unit-Test GamesController
 
 **Status:** In progress
 
@@ -382,20 +382,25 @@ The controller tests should verify that service outcomes are translated into the
 - [x] Verify service calls
 - [x] Run all tests successfully
 
-# Challenge 13: Add a Developer to Games
+## Latest completed challenge
 
-## User story
+### Challenge 13: Add a Developer to Games âœ…
 
-As an API user, I want each game to include its developer so that I can see which studio created the game.
+Added developer information throughout the full API workflow.
 
-## Data contract
+#### What changed
 
-A game must contain a `Developer` property.
-
-- Type: `string`
-- Required: yes
-- Maximum length: 100 characters
-- Cannot be null, empty, or whitespace
+- Added a required `Developer` string property to games
+- Added validation preventing null, empty, whitespace, or values longer than 100 characters
+- Updated create and update requests
+- Updated game responses
+- Updated controller mapping
+- Updated EF Core persistence
+- Added and applied an EF Core migration
+- Updated service unit tests
+- Updated controller unit tests
+- Updated API integration tests
+- Verified that all tests pass
 
 Example request:
 
@@ -404,5 +409,5 @@ Example request:
   "title": "Cyberpunk 2077",
   "genre": "Action RPG",
   "releaseYear": 2020,
-  "developer": "CD Projekt Red"
+  "developer": "CD Projekt"
 }

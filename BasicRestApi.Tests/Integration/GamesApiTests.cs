@@ -67,6 +67,7 @@ namespace BasicRestApi.Tests.Integration
             Assert.Equal(expectedGame.Title, actualGame.Title);
             Assert.Equal(expectedGame.Genre, actualGame.Genre);
             Assert.Equal(expectedGame.ReleaseYear, actualGame.ReleaseYear);
+            Assert.Equal(expectedGame.Developer, actualGame.Developer);
         }
 
         [Fact]
