@@ -1,6 +1,11 @@
 @BasicRestApi_HostAddress = http://localhost:5231
 
-GET {{BasicRestApi_HostAddress}}/weatherforecast/
+GET {{BasicRestApi_HostAddress}}/api/games
+Accept: application/json
+
+###
+
+GET {{BasicRestApi_HostAddress}}/api/games/1
 Accept: application/json
 
 ###
