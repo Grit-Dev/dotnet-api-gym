@@ -14,5 +14,8 @@ namespace BasicRestApi.Dtos
 
         [Range(1950, 2100)]   
         public int ReleaseYear { get; set; }
+
+        [StringLength(100)]
+        public string Developer { get; set; } = string.Empty;
     }
 }

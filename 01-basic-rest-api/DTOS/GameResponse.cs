@@ -9,5 +9,7 @@
         public string Genre { get; set; } = string.Empty;
 
         public int ReleaseYear { get; set; }
+
+        public string Developer { get; set; } = string.Empty;
     }
 }
