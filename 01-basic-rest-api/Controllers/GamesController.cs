@@ -32,7 +32,8 @@ namespace BasicRestApi.Controllers
                     Id = game.Id,
                     Title = game.Title,
                     Genre = game.Genre,
-                    ReleaseYear = game.ReleaseYear
+                    ReleaseYear = game.ReleaseYear,
+                    Developer = game.Developer
                 });
             }
 
@@ -54,7 +55,9 @@ namespace BasicRestApi.Controllers
                 Id = game.Id,
                 Title = game.Title,
                 Genre = game.Genre,
-                ReleaseYear = game.ReleaseYear
+                ReleaseYear = game.ReleaseYear,
+                Developer = game.Developer
+                
             };
 
             return Ok(response);
@@ -69,6 +72,7 @@ namespace BasicRestApi.Controllers
                 Title = request.Title,
                 Genre = request.Genre,
                 ReleaseYear = request.ReleaseYear,
+                Developer = request.Developer
             };
 
             var createdGame = _gameService.CreateGame(gameAdd);
@@ -79,6 +83,7 @@ namespace BasicRestApi.Controllers
                 Title = createdGame.Title,
                 Genre = createdGame.Genre,
                 ReleaseYear = createdGame.ReleaseYear,
+                Developer = createdGame.Developer
             };
 
             return CreatedAtAction(nameof(GetGameById), new { id = createdGame.Id }, response);
@@ -91,7 +96,9 @@ namespace BasicRestApi.Controllers
             {
                 Title = request.Title,
                 Genre = request.Genre,
-                ReleaseYear = request.ReleaseYear
+                ReleaseYear = request.ReleaseYear,
+                Developer = request.Developer
+                
             };
 
             var gameFound = _gameService.UpdateGame(id, updateGame);
