@@ -55,13 +55,15 @@ namespace BasicRestApi.Tests.Integration
                         {
                             Title = "The Witcher 3",
                             Genre = "Action RPG",
-                            ReleaseYear = 2015
+                            ReleaseYear = 2015,
+                            Developer = "CD PROJEKT"
                         },
                         new Game
                         {
                             Title = "Cyberpunk 2077",
                             Genre = "Action RPG",
-                            ReleaseYear = 2020
+                            ReleaseYear = 2020,
+                            Developer = "CD PROJEKT"
                         });
 
                     context.SaveChanges();
