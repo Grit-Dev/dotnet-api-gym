@@ -6,7 +6,7 @@ namespace BasicRestApi.Services
     {
         Platform? GetPlatormById(int id);
 
-        Platform? CreatePlatform(Platform platform);
+        Platform CreatePlatform(Platform platform);
 
         bool DeletePlatform(int id);
 

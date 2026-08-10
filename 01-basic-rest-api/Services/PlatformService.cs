@@ -13,7 +13,7 @@ namespace BasicRestApi.Services
 
         public Platform? GetPlatormById(int id) => _context.Platforms.Find(id);
 
-        public Platform? CreatePlatform(Platform platform)
+        public Platform CreatePlatform(Platform platform)
         {
             var createPlatform = new Platform
             {
