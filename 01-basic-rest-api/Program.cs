@@ -23,6 +23,7 @@ namespace BasicRestApi
                 options.UseSqlite($"Data Source={databasePath}"));
 
             builder.Services.AddScoped<IGameService, GameService>();
+            builder.Services.AddScoped<IPlatformService, PlatformService>();
 
             var app = builder.Build();
 
