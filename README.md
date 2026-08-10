@@ -433,3 +433,11 @@ Swagger UI provides one page for viewing and testing the endpoints exposed by al
 ## Latest Completed Challenge
 
 [Challenge 13: Add a Developer to Games ✅](CHALLENGES.md#challenge-13-add-a-developer-to-games)
+
+## Current Challenge
+
+### Challenge 14: Build a Platforms API
+
+Build a second API resource for gaming platforms using the existing Games implementation as the reference pattern.
+
+[View the full acceptance criteria](CHALLENGES.md#challenge-14-build-a-platforms-api)

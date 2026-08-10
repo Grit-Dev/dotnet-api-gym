@@ -404,10 +404,48 @@ Added developer information throughout the full API workflow.
 
 Example request:
 
-```json
+``json
 {
   "title": "Cyberpunk 2077",
   "genre": "Action RPG",
   "releaseYear": 2020,
   "developer": "CD Projekt"
+}
+
+### Challenge 14: Build a Platforms API
+
+## User story
+
+As an API user, I want to manage gaming platforms so that the API can store information about systems such as PC, Xbox Series X, and PlayStation 5.
+
+## Data contract
+
+A platform contains:
+
+- `Id`
+  - Type: `int`
+
+- `Name`
+  - Type: `string`
+  - Required
+  - Maximum length: 100 characters
+  - Cannot be null, empty, or whitespace
+
+- `Manufacturer`
+  - Type: `string`
+  - Required
+  - Maximum length: 100 characters
+  - Cannot be null, empty, or whitespace
+
+- `ReleaseYear`
+  - Type: `int`
+  - Must be between 1970 and 2100
+
+Example request:
+
+```json
+{
+  "name": "PlayStation 5",
+  "manufacturer": "Sony",
+  "releaseYear": 2020
 }
