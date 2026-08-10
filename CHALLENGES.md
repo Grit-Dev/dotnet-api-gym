@@ -404,7 +404,7 @@ Added developer information throughout the full API workflow.
 
 Example request:
 
-``json
+json
 {
   "title": "Cyberpunk 2077",
   "genre": "Action RPG",
@@ -443,7 +443,7 @@ A platform contains:
 
 Example request:
 
-```json
+json
 {
   "name": "PlayStation 5",
   "manufacturer": "Sony",
