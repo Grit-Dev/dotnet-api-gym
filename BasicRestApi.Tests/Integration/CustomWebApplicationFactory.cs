@@ -15,7 +15,7 @@ namespace BasicRestApi.Tests.Integration
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
         // One test database shared by this factory.
-        private readonly string _databaseName = $"GamesIntegrationTests-{Guid.NewGuid()}";
+        private readonly string _databaseName = $"BasicRestApiIntegrationTests-{Guid.NewGuid()}";
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -64,6 +64,25 @@ namespace BasicRestApi.Tests.Integration
                             Genre = "Action RPG",
                             ReleaseYear = 2020,
                             Developer = "CD PROJEKT"
+                        });
+
+                    context.SaveChanges();
+                }
+
+                if (!context.Platforms.Any())
+                {
+                    context.Platforms.AddRange(
+                        new Platform
+                        {
+                            Name = "PlayStation 5",
+                            Manufacturer = "Sony",
+                            ReleaseYear = 2020
+                        },
+                        new Platform
+                        {
+                            Name = "Xbox Series X",
+                            Manufacturer = "Microsoft",
+                            ReleaseYear = 2020
                         });
 
                     context.SaveChanges();
