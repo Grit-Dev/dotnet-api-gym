@@ -412,7 +412,9 @@ json
   "developer": "CD Projekt"
 }
 
-### Challenge 14: Build a Platforms API
+## Latest completed challenge
+
+### Challenge 14: Build a Platforms API ✅
 
 ## User story
 
