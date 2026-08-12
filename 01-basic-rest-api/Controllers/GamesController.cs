@@ -33,7 +33,8 @@ namespace BasicRestApi.Controllers
                     Title = game.Title,
                     Genre = game.Genre,
                     ReleaseYear = game.ReleaseYear,
-                    Developer = game.Developer
+                    DeveloperId = game.DeveloperId,
+                    DeveloperName = game.Developer?.Name ?? string.Empty
                 });
             }
 
@@ -56,8 +57,9 @@ namespace BasicRestApi.Controllers
                 Title = game.Title,
                 Genre = game.Genre,
                 ReleaseYear = game.ReleaseYear,
-                Developer = game.Developer
-                
+                DeveloperId = game.DeveloperId,
+                DeveloperName = game.Developer?.Name ?? string.Empty
+
             };
 
             return Ok(response);
@@ -72,7 +74,7 @@ namespace BasicRestApi.Controllers
                 Title = request.Title,
                 Genre = request.Genre,
                 ReleaseYear = request.ReleaseYear,
-                Developer = request.Developer
+                DeveloperId = request.DeveloperId, 
             };
 
             var createdGame = _gameService.CreateGame(gameAdd);
@@ -83,7 +85,8 @@ namespace BasicRestApi.Controllers
                 Title = createdGame.Title,
                 Genre = createdGame.Genre,
                 ReleaseYear = createdGame.ReleaseYear,
-                Developer = createdGame.Developer
+                DeveloperId = createdGame.DeveloperId,
+                DeveloperName = createdGame.Developer?.Name ?? string.Empty 
             };
 
             return CreatedAtAction(nameof(GetGameById), new { id = createdGame.Id }, response);
@@ -97,8 +100,8 @@ namespace BasicRestApi.Controllers
                 Title = request.Title,
                 Genre = request.Genre,
                 ReleaseYear = request.ReleaseYear,
-                Developer = request.Developer
-                
+                DeveloperId = request.DeveloperId,
+
             };
 
             var gameFound = _gameService.UpdateGame(id, updateGame);

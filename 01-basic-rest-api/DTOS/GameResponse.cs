@@ -10,6 +10,8 @@
 
         public int ReleaseYear { get; set; }
 
-        public string Developer { get; set; } = string.Empty;
+        public int DeveloperId { get; set; }
+
+        public string DeveloperName { get; set; } = string.Empty;
     }
 }

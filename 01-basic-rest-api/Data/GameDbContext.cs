@@ -12,5 +12,7 @@ namespace BasicRestApi.Data
         public DbSet<Game> Games { get; set; }
 
         public DbSet<Platform> Platforms { get; set; }
+
+        public DbSet<Developer> Developers { get; set; }
     }
 }
