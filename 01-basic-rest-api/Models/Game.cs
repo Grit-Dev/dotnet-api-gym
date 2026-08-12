@@ -4,12 +4,14 @@
     {
         public int Id { get; set; }
 
+        public int DeveloperId { get; set; }
+
         public string Title { get; set; } = string.Empty;
 
         public string Genre { get; set; } = string.Empty;
 
         public int ReleaseYear { get; set; }
 
-        public string Developer { get; set; } = string.Empty;
+        public Developer? Developer { get; set; }
     }
 }
