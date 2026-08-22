@@ -13,5 +13,7 @@
         public int DeveloperId { get; set; }
 
         public string DeveloperName { get; set; } = string.Empty;
+
+        public List<string> Platforms { get; set; } = [];
     }
 }

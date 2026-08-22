@@ -6,22 +6,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
-// Scaffolding built to make Integration easier to test
-// See Docs: 
-// https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-9.0&pivots=xunit
-// https://learn.microsoft.com/en-us/ef/core/testing/testing-without-the-database
 namespace BasicRestApi.Tests.Integration
 {
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
-        // One test database shared by this factory.
-        private readonly string _databaseName = $"BasicRestApiIntegrationTests-{Guid.NewGuid()}";
+        // One isolated test database per factory instance.
+        private readonly string _databaseName =
+            $"BasicRestApiIntegrationTests-{Guid.NewGuid()}";
+
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.ConfigureServices(services =>
             {
-                // Remove the real SQLite configuration.
+                // Remove production SQLite configuration.
                 var dbContextDescriptor =
                     services.SingleOrDefault(service =>
                         service.ServiceType ==
@@ -32,79 +30,97 @@ namespace BasicRestApi.Tests.Integration
                     services.Remove(dbContextDescriptor);
                 }
 
-                // Replace SQLite with a test-only in-memory database.
+
+                // Add test-only InMemory database.
                 services.AddDbContext<GameDbContext>(options =>
                     options.UseInMemoryDatabase(_databaseName));
 
-                var serviceProvider =
-                    services.BuildServiceProvider();
 
-                using var scope =
-                    serviceProvider.CreateScope();
+                // Create service provider after replacing DbContext.
+                var provider = services.BuildServiceProvider();
 
-                var context =
-                    scope.ServiceProvider
-                        .GetRequiredService<GameDbContext>();
+                using var scope = provider.CreateScope();
+
+                var context = scope.ServiceProvider
+                    .GetRequiredService<GameDbContext>();
+
 
                 context.Database.EnsureCreated();
 
-                Developer cdProjekt;
 
-                if (!context.Developers.Any())
-                {
-                    cdProjekt = new Developer
-                    {
-                        Name = "CD PROJEKT"
-                    };
-
-                    context.Developers.Add(cdProjekt);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    cdProjekt = context.Developers.First();
-                }
-
-                if (!context.Games.Any())
-                {
-                    context.Games.AddRange(
-                        new Game
-                        {
-                            Title = "The Witcher 3",
-                            Genre = "Action RPG",
-                            ReleaseYear = 2015,
-                            DeveloperId = cdProjekt.Id
-                        },
-                        new Game
-                        {
-                            Title = "Cyberpunk 2077",
-                            Genre = "Action RPG",
-                            ReleaseYear = 2020,
-                            DeveloperId = cdProjekt.Id
-                        });
-
-                    context.SaveChanges();
-                }
-
-                if (!context.Platforms.Any())
-                {
-                    context.Platforms.AddRange(
-                        new Platform
-                        {
-                            Name = "PlayStation 5",
-                            Manufacturer = "Sony",
-                            ReleaseYear = 2020
-                        },
-                        new Platform
-                        {
-                            Name = "Xbox Series X",
-                            Manufacturer = "Microsoft",
-                            ReleaseYear = 2020
-                        });
-
-                    context.SaveChanges();
-                }
+                SeedDatabase(context);
             });
+        }
+
+
+        private static void SeedDatabase(GameDbContext context)
+        {
+            Developer cdProjekt;
+
+            // Seed developer
+            if (!context.Developers.Any())
+            {
+                cdProjekt = new Developer
+                {
+                    Name = "CD PROJEKT"
+                };
+
+                context.Developers.Add(cdProjekt);
+                context.SaveChanges();
+            }
+            else
+            {
+                cdProjekt = context.Developers.First();
+            }
+
+
+            // Seed platforms
+            if (!context.Platforms.Any())
+            {
+                context.Platforms.AddRange(
+                    new Platform
+                    {
+                        Name = "PlayStation 5",
+                        Manufacturer = "Sony",
+                        ReleaseYear = 2020
+                    },
+                    new Platform
+                    {
+                        Name = "Xbox Series X",
+                        Manufacturer = "Microsoft",
+                        ReleaseYear = 2020
+                    });
+
+                context.SaveChanges();
+            }
+
+
+            var platforms = context.Platforms.ToList();
+
+
+            // Seed games
+            if (!context.Games.Any())
+            {
+                context.Games.AddRange(
+                    new Game
+                    {
+                        Title = "The Witcher 3",
+                        Genre = "Action RPG",
+                        ReleaseYear = 2015,
+                        DeveloperId = cdProjekt.Id,
+                        Platforms = platforms
+                    },
+                    new Game
+                    {
+                        Title = "Cyberpunk 2077",
+                        Genre = "Action RPG",
+                        ReleaseYear = 2020,
+                        DeveloperId = cdProjekt.Id,
+                        Platforms = platforms
+                    });
+
+                context.SaveChanges();
+            }
         }
     }
 }

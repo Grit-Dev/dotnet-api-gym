@@ -12,5 +12,7 @@ namespace BasicRestApi.Services
         bool UpdateGame(int id, Game game);
 
         bool DeleteGame(int id);
+
+        IReadOnlyList<Platform> GetPlatformsByIds(List<int> platformIds);
     }
 }

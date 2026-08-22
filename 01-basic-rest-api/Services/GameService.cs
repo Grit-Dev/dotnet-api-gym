@@ -1,5 +1,6 @@
 ﻿using BasicRestApi.Data;
 using BasicRestApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BasicRestApi.Services
 {
@@ -11,8 +12,27 @@ namespace BasicRestApi.Services
         {
             _context = dbContext;
         }
+        public IReadOnlyList<Platform> GetPlatformsByIds(List<int> platformIds)
+        {
+            return _context.Platforms
+                .Where(platform => platformIds.Contains(platform.Id))
+                .ToList();
+        }
 
-        public Game? GetGameById(int id) => _context.Games.Find(id);
+        public Game? GetGameById(int id)
+        {
+            Console.WriteLine($"REQUESTED GAME ID: {id}");
+            Console.WriteLine($"TOTAL GAMES: {_context.Games.Count()}");
+
+            var game = _context.Games
+                .Include(g => g.Developer)
+                .Include(g => g.Platforms)
+                .FirstOrDefault(g => g.Id == id);
+
+            Console.WriteLine($"FOUND GAME: {game?.Id}");
+
+            return game;
+        }
 
         public Game CreateGame(Game game)
         {
@@ -22,12 +42,13 @@ namespace BasicRestApi.Services
                 Genre = game.Genre,
                 ReleaseYear = game.ReleaseYear,
                 DeveloperId = game.DeveloperId,
+                Platforms = game.Platforms
             };
 
             _context.Games.Add(createGame);
             _context.SaveChanges();
 
-            return createGame;
+            return GetGameById(createGame.Id)!;
         }
 
         public bool DeleteGame(int id)
@@ -47,12 +68,17 @@ namespace BasicRestApi.Services
 
         public IReadOnlyList<Game> GetGames()
         {
-            return _context.Games.ToList();
+            return _context.Games
+                .Include(g => g.Developer)
+                .Include(g => g.Platforms)
+                .ToList();
         }
 
         public bool UpdateGame(int id, Game game)
         {
-            var gameFound = _context.Games.Find(id);
+            var gameFound = _context.Games
+                .Include(g => g.Platforms)
+                .FirstOrDefault(g => g.Id == id);
 
             if (gameFound is null)
             {
@@ -63,6 +89,19 @@ namespace BasicRestApi.Services
             gameFound.Genre = game.Genre;
             gameFound.ReleaseYear = game.ReleaseYear;
             gameFound.DeveloperId = game.DeveloperId;
+
+            gameFound.Platforms.Clear();
+
+            var platforms = _context.Platforms
+                .Where(p => game.Platforms
+                    .Select(x => x.Id)
+                    .Contains(p.Id))
+                .ToList();
+
+            foreach (var platform in platforms)
+            {
+                gameFound.Platforms.Add(platform);
+            }
 
             _context.SaveChanges();
 
