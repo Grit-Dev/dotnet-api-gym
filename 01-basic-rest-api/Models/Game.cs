@@ -13,5 +13,7 @@
         public int ReleaseYear { get; set; }
 
         public Developer? Developer { get; set; }
+
+        public List<Platform> Platforms { get; set; } = [];
     }
 }
