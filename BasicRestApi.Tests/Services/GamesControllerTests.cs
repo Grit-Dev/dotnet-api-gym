@@ -58,7 +58,12 @@ namespace BasicRestApi.Tests.Services
                 Title = "Cyberpunk 2077",
                 Genre = "Action RPG",
                 ReleaseYear = 2020,
-                Developer = "CD PROJEKT"
+                DeveloperId = 1,
+                Developer = new Developer
+                {
+                    Id = 1,
+                    Name = "CD PROJEKT"
+                }
             };
 
             _gameServiceMock
@@ -87,7 +92,8 @@ namespace BasicRestApi.Tests.Services
             Assert.Equal(game.Title, response.Title);
             Assert.Equal(game.Genre, response.Genre);
             Assert.Equal(game.ReleaseYear, response.ReleaseYear);
-            Assert.Equal(game.Developer, response.Developer);
+            Assert.Equal(game.Developer.Id, response.DeveloperId);
+            Assert.Equal(game.Developer.Name, response.DeveloperName);
 
             _gameServiceMock.Verify(
                 service => service.GetGameById(gameId), Times.Once);
@@ -105,14 +111,24 @@ namespace BasicRestApi.Tests.Services
                     Title = "Cyberpunk 2077",
                     Genre = "Action RPG",
                     ReleaseYear = 2020,
-                    Developer = "CD PROJEKT"
+                    DeveloperId = 1,
+                    Developer = new Developer
+                    {
+                        Id = 1,
+                        Name = "CD PROJEKT"
+                    }
                 },
                 new() {
                     Id = 2,
                     Title = "The Witcher 3",
                     Genre = "Action RPG",
                     ReleaseYear = 2015,
-                    Developer = "CD PROJEKT"
+                    DeveloperId = 1,
+                    Developer = new Developer
+                    {
+                        Id = 1,
+                        Name = "CD PROJEKT"
+                    }
                 }
             };
 
@@ -144,7 +160,8 @@ namespace BasicRestApi.Tests.Services
                 Assert.Equal(games[outterIndex].Title, response[outterIndex].Title);
                 Assert.Equal(games[outterIndex].Genre, response[outterIndex].Genre);
                 Assert.Equal(games[outterIndex].ReleaseYear, response[outterIndex].ReleaseYear);
-                Assert.Equal(games[outterIndex].Developer, response[outterIndex].Developer);
+                Assert.Equal(games[outterIndex].Developer!.Id, response[outterIndex].DeveloperId);
+                Assert.Equal(games[outterIndex].Developer!.Name, response[outterIndex].DeveloperName);
             }
 
             _gameServiceMock.Verify(
@@ -207,7 +224,7 @@ namespace BasicRestApi.Tests.Services
                 Title = "Cyberpunk 2077 Updated",
                 Genre = "Action RPG",
                 ReleaseYear = 2021,
-                Developer = "CD PROJEKT"
+                DeveloperId = 1,
             };
 
             _gameServiceMock
@@ -240,7 +257,7 @@ namespace BasicRestApi.Tests.Services
                 Title = "Cyberpunk 2077 Updated",
                 Genre = "Action RPG",
                 ReleaseYear = 2021,
-                Developer = "CD PROJEKT"
+                DeveloperId = 1
             };
 
             _gameServiceMock.Setup(
@@ -268,7 +285,7 @@ namespace BasicRestApi.Tests.Services
                 Title = "Elden Ring",
                 Genre = "Action RPG",
                 ReleaseYear = 2022,
-                Developer = "CD PROJEKT"
+                DeveloperId = 1
             };
 
             var createdGame = new Game
@@ -277,7 +294,7 @@ namespace BasicRestApi.Tests.Services
                 Title = request.Title,
                 Genre = request.Genre,
                 ReleaseYear = request.ReleaseYear,
-                Developer = request.Developer
+                DeveloperId = request.DeveloperId
             };
 
             // When the controller sends any Game to CreateGame,
@@ -300,7 +317,7 @@ namespace BasicRestApi.Tests.Services
             Assert.Equal(createdGame.Title, response.Title);
             Assert.Equal(createdGame.Genre, response.Genre);
             Assert.Equal(createdGame.ReleaseYear, response.ReleaseYear);
-            Assert.Equal(createdGame.Developer, response.Developer);
+            Assert.Equal(createdGame.DeveloperId, response.DeveloperId);
 
             Assert.Equal(
                 createdGame.Id,

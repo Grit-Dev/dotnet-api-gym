@@ -48,6 +48,23 @@ namespace BasicRestApi.Tests.Integration
 
                 context.Database.EnsureCreated();
 
+                Developer cdProjekt;
+
+                if (!context.Developers.Any())
+                {
+                    cdProjekt = new Developer
+                    {
+                        Name = "CD PROJEKT"
+                    };
+
+                    context.Developers.Add(cdProjekt);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    cdProjekt = context.Developers.First();
+                }
+
                 if (!context.Games.Any())
                 {
                     context.Games.AddRange(
@@ -56,14 +73,14 @@ namespace BasicRestApi.Tests.Integration
                             Title = "The Witcher 3",
                             Genre = "Action RPG",
                             ReleaseYear = 2015,
-                            Developer = "CD PROJEKT"
+                            DeveloperId = cdProjekt.Id
                         },
                         new Game
                         {
                             Title = "Cyberpunk 2077",
                             Genre = "Action RPG",
                             ReleaseYear = 2020,
-                            Developer = "CD PROJEKT"
+                            DeveloperId = cdProjekt.Id
                         });
 
                     context.SaveChanges();

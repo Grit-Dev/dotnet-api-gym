@@ -27,7 +27,12 @@ namespace BasicRestApi.Tests.Services
                     Title = "Witcher 3",
                     Genre = "Action RPG",
                     ReleaseYear = 2020,
-                    Developer = "CD PROJEKT"
+                    Developer = new Developer
+                    {
+                        Id = 1,
+                        Name = "CD PROJEKT"
+                    }
+
                 },
                 new Game
                 {
@@ -35,7 +40,11 @@ namespace BasicRestApi.Tests.Services
                     Title = "Cyberpunk 2077",
                     Genre = "Action RPG",
                     ReleaseYear = 2020,
-                    Developer = "CD PROJEKT"
+                    Developer = new Developer
+                    {
+                        Id = 2,
+                        Name = "CD PROJEKT"
+                    }
                 },
                 new Game
                 {
@@ -43,7 +52,11 @@ namespace BasicRestApi.Tests.Services
                     Title = "Crimson Desert",
                     Genre = "Action RPG",
                     ReleaseYear = 2020,
-                    Developer = "Pearl Abyss"
+                    Developer = new Developer
+                    {
+                        Id = 3,
+                        Name = "Pearl Abyss"
+                    }
                 });
 
             _gameDbContext.SaveChanges();
@@ -104,15 +117,23 @@ namespace BasicRestApi.Tests.Services
         }
 
         [Fact]
-        public void CreateGame_ReturnMatchGame()
+        public void CreateGame_ReturnsMatchingGame()
         {
             // Arrange
+            var developer = new Developer
+            {
+                Name = "Konami"
+            };
+
+            _gameDbContext.Developers.Add(developer);
+            _gameDbContext.SaveChanges();
+
             var newGame = new Game
             {
                 Title = "Metal Gear Solid",
                 Genre = "Tactical Espionage",
-                ReleaseYear = 1993,
-                Developer = "Konami + Hideo Kojima"
+                ReleaseYear = 1998,
+                DeveloperId = developer.Id
             };
 
             // Act
@@ -124,19 +145,25 @@ namespace BasicRestApi.Tests.Services
             Assert.Equal(newGame.Title, result.Title);
             Assert.Equal(newGame.Genre, result.Genre);
             Assert.Equal(newGame.ReleaseYear, result.ReleaseYear);
-            Assert.Equal(newGame.Developer, result.Developer);
+            Assert.Equal(developer.Id, result.DeveloperId);
         }
 
         [Fact]
         public void CreateGame_WhenCalled_ShouldBeStoresSuccessfully()
         {
             // Arrange
+
+            var developer = new Developer
+            {
+                Name = "Konami"
+            };
+
             var newGame = new Game
             {
                 Title = "Gray Zone Warfare",
                 Genre = "Extraction Shooter",
                 ReleaseYear = 2022,
-                Developer = "MADFINGER GAMES"
+                DeveloperId = developer.Id
             };
 
             // Act
@@ -150,20 +177,29 @@ namespace BasicRestApi.Tests.Services
             Assert.Equal(newGame.Title, retrievedGame.Title);
             Assert.Equal(newGame.Genre, retrievedGame.Genre);
             Assert.Equal(newGame.ReleaseYear, retrievedGame.ReleaseYear);
-            Assert.Equal(newGame.Developer, retrievedGame.Developer);
+            Assert.Equal(newGame.DeveloperId, retrievedGame.DeveloperId);
         }
 
         [Fact]
         public void UpdateGame_WhenCalled_ExistingIdShouldReturnTrue()
         {
             // Arrange
+
+            var developer = new Developer
+            {
+                Name = "Konami"
+            };
+
+            _gameDbContext.Developers.Add(developer);
+            _gameDbContext.SaveChanges();
+
             var updateGame = new Game
             {
                 Id = 1,
                 Title = "Test",
                 Genre = "Test2",
                 ReleaseYear = 2026,
-                Developer = "Hello World"
+                DeveloperId = developer.Id
             };
 
             // Act
@@ -183,7 +219,11 @@ namespace BasicRestApi.Tests.Services
                 Title = "Test",
                 Genre = "Test2",
                 ReleaseYear = 2026,
-                Developer = "Hello World"
+                Developer = new Developer
+                {
+                    Id = 1,
+                    Name = "Hello World"
+                }
             };
 
             // Act
@@ -198,13 +238,21 @@ namespace BasicRestApi.Tests.Services
         public void UpdateGame_WhenCalled_ShouldReturnUpdatedProperties()
         {
             // Arrange
+
+            var developer = new Developer
+            {
+                Name = "CD PROJEKT"
+            };
+
+            _gameDbContext.Developers.Add(developer);
+            _gameDbContext.SaveChanges();
+
             var newGame = new Game
             {
                 Title = "Test",
                 Genre = "Test2",
                 ReleaseYear = 2000,
-                Developer = "Gray Fox"
-                
+                DeveloperId = developer.Id
             };
             
             var gameAdded = _gameService.CreateGame(newGame);
@@ -214,7 +262,7 @@ namespace BasicRestApi.Tests.Services
                 Title = "Witcher 4",
                 Genre = "ACTION RPG",
                 ReleaseYear = 2029,
-                Developer = "CD PROJEKT"
+                DeveloperId = developer.Id
             };
 
             // Act
@@ -228,7 +276,7 @@ namespace BasicRestApi.Tests.Services
             Assert.Equal(updatedGame.Title, gameFound.Title);
             Assert.Equal(updatedGame.Genre, gameFound.Genre);
             Assert.Equal(updatedGame.ReleaseYear, gameFound.ReleaseYear);
-            Assert.Equal(updatedGame.Developer, gameFound.Developer);
+            Assert.Equal(updatedGame.DeveloperId, gameFound.DeveloperId);
         }
 
         [Fact]
@@ -240,7 +288,11 @@ namespace BasicRestApi.Tests.Services
                 Title = "Test",
                 Genre = "Test",
                 ReleaseYear = 1990,
-                Developer = "Test"
+                Developer = new Developer
+                {
+                    Id = 1,
+                    Name = "Test"
+                }
             };
 
             var gameCreated = _gameService.CreateGame(newGame);

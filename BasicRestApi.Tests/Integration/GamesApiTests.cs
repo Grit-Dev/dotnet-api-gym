@@ -67,7 +67,8 @@ namespace BasicRestApi.Tests.Integration
             Assert.Equal(expectedGame.Title, actualGame.Title);
             Assert.Equal(expectedGame.Genre, actualGame.Genre);
             Assert.Equal(expectedGame.ReleaseYear, actualGame.ReleaseYear);
-            Assert.Equal(expectedGame.Developer, actualGame.Developer);
+            Assert.Equal(expectedGame.DeveloperId, actualGame.DeveloperId);
+            Assert.Equal(expectedGame.DeveloperName, actualGame.DeveloperName);
         }
 
         [Fact]
@@ -77,7 +78,8 @@ namespace BasicRestApi.Tests.Integration
             {
                 Title = "I hope you work",
                 Genre = "Hail Mary",
-                ReleaseYear = 2026
+                ReleaseYear = 2026,
+                DeveloperId = 1
             };
 
             var respone = await _httpClient.PostAsJsonAsync("/api/games", request);
@@ -91,6 +93,7 @@ namespace BasicRestApi.Tests.Integration
             Assert.Equal(request.Title, createdGame.Title);
             Assert.Equal(request.Genre, createdGame.Genre);
             Assert.Equal(request.ReleaseYear, createdGame.ReleaseYear);
+            Assert.Equal(request.DeveloperId, createdGame.DeveloperId);
 
             Assert.NotNull(respone.Headers.Location);
 
@@ -107,7 +110,8 @@ namespace BasicRestApi.Tests.Integration
             {
                 Title = "I should not work",
                 Genre = "No Hail Marys this time",
-                ReleaseYear = 0
+                ReleaseYear = 0,
+                DeveloperId = 1
             };
 
             var response = await _httpClient.PostAsJsonAsync("/api/games", request);
@@ -122,7 +126,8 @@ namespace BasicRestApi.Tests.Integration
             {
                 Title = "Missing game",
                 Genre = "Unknown",
-                ReleaseYear = 2025
+                ReleaseYear = 2025,
+                DeveloperId = 1
             };
 
             var response = await _httpClient.PutAsJsonAsync($"/api/games/{999999}", request);
@@ -137,7 +142,8 @@ namespace BasicRestApi.Tests.Integration
             {
                 Title = "Original title",
                 Genre = "Original genre",
-                ReleaseYear = 2020
+                ReleaseYear = 2020,
+                DeveloperId = 1
             };
 
             var createResponse = await _httpClient.PostAsJsonAsync("/api/games", createRequest);
@@ -152,7 +158,8 @@ namespace BasicRestApi.Tests.Integration
             {
                 Title = "Updated title",
                 Genre = "Updated genre",
-                ReleaseYear = 2025
+                ReleaseYear = 2025,
+                DeveloperId = 2
             };
 
             var updateResponse = await _httpClient.PutAsJsonAsync($"/api/games/{createdGame.Id}", updateRequest);
@@ -179,7 +186,8 @@ namespace BasicRestApi.Tests.Integration
             {
                 Title = "Delete me",
                 Genre = "Temporary",
-                ReleaseYear = 2024
+                ReleaseYear = 2024,
+                DeveloperId = 2
             };
 
             var createResponse = await _httpClient.PostAsJsonAsync("/api/games", createRequest);
