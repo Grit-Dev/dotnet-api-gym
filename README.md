@@ -1,5 +1,9 @@
 ﻿# .NET API Gym
 
+![Status](https://img.shields.io/badge/status-completed-success)
+![.NET](https://img.shields.io/badge/.NET-9-purple)
+![Tests](https://img.shields.io/badge/tests-passing-success)
+
 A progressive C#/.NET learning repository focused on strengthening practical backend development skills through a series of small ASP.NET Core Web API projects.
 
 The projects begin with fundamentals and gradually increase in difficulty. Each stage builds on the previous one through guided learning, implementation challenges, debugging exercises, testing, review, and clean Git commits.
