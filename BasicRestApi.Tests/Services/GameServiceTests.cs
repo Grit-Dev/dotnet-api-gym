@@ -158,6 +158,10 @@ namespace BasicRestApi.Tests.Services
                 Name = "Konami"
             };
 
+            _gameDbContext.Developers.Add(developer);
+            _gameDbContext.SaveChanges();
+
+
             var newGame = new Game
             {
                 Title = "Gray Zone Warfare",
@@ -166,13 +170,16 @@ namespace BasicRestApi.Tests.Services
                 DeveloperId = developer.Id
             };
 
+
             // Act
             var result = _gameService.CreateGame(newGame);
 
             var retrievedGame = _gameService.GetGameById(result.Id);
 
+
             // Assert
             Assert.NotNull(retrievedGame);
+
             Assert.Equal(result.Id, retrievedGame.Id);
             Assert.Equal(newGame.Title, retrievedGame.Title);
             Assert.Equal(newGame.Genre, retrievedGame.Genre);
@@ -280,30 +287,34 @@ namespace BasicRestApi.Tests.Services
         }
 
         [Fact]
-        public void DeleteGame_WhenCalled_ShouldDeleteSucessfully()
+        public void DeleteGame_WhenCalled_ShouldDeleteSuccessfully()
         {
             // Arrange
+            var developer = new Developer
+            {
+                Name = "Test"
+            };
+
+            _gameDbContext.Developers.Add(developer);
+            _gameDbContext.SaveChanges();
+
             var newGame = new Game
             {
                 Title = "Test",
                 Genre = "Test",
                 ReleaseYear = 1990,
-                Developer = new Developer
-                {
-                    Id = 1,
-                    Name = "Test"
-                }
+                DeveloperId = developer.Id
             };
 
             var gameCreated = _gameService.CreateGame(newGame);
 
             // Act
             var gameDeleted = _gameService.DeleteGame(gameCreated.Id);
-            var retrieveGame = _gameService.GetGameById(gameCreated.Id);
+            var retrievedGame = _gameService.GetGameById(gameCreated.Id);
 
             // Assert
             Assert.True(gameDeleted);
-            Assert.Null(retrieveGame);
+            Assert.Null(retrievedGame);
         }
 
         [Fact]

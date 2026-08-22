@@ -138,13 +138,18 @@ namespace BasicRestApi.Tests.Integration
         [Fact]
         public async Task UpdateGame_WhenGameExists_ReturnsNoContentAndUpdatesGame()
         {
+            // Arrange - create game
             var createRequest = new CreateGameRequest
             {
                 Title = "Original title",
                 Genre = "Original genre",
                 ReleaseYear = 2020,
-                DeveloperId = 1
-            };
+                DeveloperId = 1,
+                PlatformIds = new List<int>
+                {
+                    1
+                }
+             };
 
             var createResponse = await _httpClient.PostAsJsonAsync("/api/games", createRequest);
 
@@ -154,58 +159,116 @@ namespace BasicRestApi.Tests.Integration
 
             Assert.NotNull(createdGame);
 
+
+            // Confirm it exists before update
+            var beforeUpdate = await _httpClient.GetAsync($"/api/games/{createdGame.Id}");
+
+            Assert.Equal(HttpStatusCode.OK, beforeUpdate.StatusCode);
+
+
+            // Update game
             var updateRequest = new UpdateGameRequest
             {
                 Title = "Updated title",
                 Genre = "Updated genre",
                 ReleaseYear = 2025,
-                DeveloperId = 2
+                DeveloperId = 1,
+                PlatformIds = new List<int>
+                {
+                    2
+                }
             };
 
-            var updateResponse = await _httpClient.PutAsJsonAsync($"/api/games/{createdGame.Id}", updateRequest);
 
+            var updateResponse = await _httpClient.PutAsJsonAsync(
+                $"/api/games/{createdGame.Id}",
+                updateRequest);
+
+
+            // Assert update succeeded
             Assert.Equal(HttpStatusCode.NoContent, updateResponse.StatusCode);
 
-            var getResponse = await _httpClient.GetAsync($"/api/games/{createdGame.Id}");
+
+            // Verify persisted changes
+            var getResponse = await _httpClient.GetAsync(
+                $"/api/games/{createdGame.Id}");
 
             Assert.Equal(HttpStatusCode.OK, getResponse.StatusCode);
+
 
             var updatedGame = await getResponse.Content.ReadFromJsonAsync<GameResponse>();
 
             Assert.NotNull(updatedGame);
+
             Assert.Equal(updateRequest.Title, updatedGame.Title);
             Assert.Equal(updateRequest.Genre, updatedGame.Genre);
             Assert.Equal(updateRequest.ReleaseYear, updatedGame.ReleaseYear);
+            Assert.Equal(updateRequest.DeveloperId, updatedGame.DeveloperId);
+
+
+            // Verify many-to-many relationship updated
+            Assert.Single(updatedGame.Platforms);
+            Assert.Contains("Xbox Series X", updatedGame.Platforms);
         }
 
         [Fact]
         public async Task DeleteGame_WhenGameExists_ReturnsNoContent()
         {
-            // Arrange: create a game specifically for deletion.
+            // Arrange
             var createRequest = new CreateGameRequest
             {
                 Title = "Delete me",
                 Genre = "Temporary",
                 ReleaseYear = 2024,
-                DeveloperId = 2
+                DeveloperId = 1,
+                PlatformIds = new List<int>
+                {
+                    1
+                }
             };
 
-            var createResponse = await _httpClient.PostAsJsonAsync("/api/games", createRequest);
 
-            var createdGame = await createResponse.Content.ReadFromJsonAsync<GameResponse>();
+            var createResponse = await _httpClient.PostAsJsonAsync(
+                "/api/games",
+                createRequest);
+
+
+            Assert.Equal(
+                HttpStatusCode.Created,
+                createResponse.StatusCode);
+
+
+            var createdGame =
+                await createResponse.Content.ReadFromJsonAsync<GameResponse>();
+
 
             Assert.NotNull(createdGame);
 
+
+
             // Act
-            var deleteResponse = await _httpClient.DeleteAsync($"/api/games/{createdGame.Id}");
+            var deleteResponse =
+                await _httpClient.DeleteAsync(
+                    $"/api/games/{createdGame.Id}");
+
+
 
             // Assert
-            Assert.Equal(HttpStatusCode.NoContent, deleteResponse.StatusCode);
+            Assert.Equal(
+                HttpStatusCode.NoContent,
+                deleteResponse.StatusCode);
 
-            // Prove it no longer exists.
-            var getResponse = await _httpClient.GetAsync($"/api/games/{createdGame.Id}");
 
-            Assert.Equal(HttpStatusCode.NotFound, getResponse.StatusCode);
+
+            // Prove it no longer exists
+            var getResponse =
+                await _httpClient.GetAsync(
+                    $"/api/games/{createdGame.Id}");
+
+
+            Assert.Equal(
+                HttpStatusCode.NotFound,
+                getResponse.StatusCode);
         }
 
         [Fact]

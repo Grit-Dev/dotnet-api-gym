@@ -17,5 +17,7 @@ namespace BasicRestApi.Dtos
 
         [Range(1, int.MaxValue)]
         public int DeveloperId { get; set; }
+
+        public List<int> PlatformIds { get; set; } = [];
     }
 }
