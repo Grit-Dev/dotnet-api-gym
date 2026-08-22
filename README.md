@@ -2,440 +2,410 @@
 
 A progressive C#/.NET learning repository focused on strengthening practical backend development skills through a series of small ASP.NET Core Web API projects.
 
-The projects begin with the fundamentals and gradually increase in difficulty. Each stage builds on the previous one through guided learning, implementation challenges, debugging exercises, testing, review, and clean Git commits.
+The projects begin with fundamentals and gradually increase in difficulty. Each stage builds on the previous one through guided learning, implementation challenges, debugging exercises, testing, review, and clean Git commits.
 
-## Purpose
+The goal is not simply to complete projects. The goal is to understand how backend applications are designed, how requests flow through an API, how data is stored, how problems are debugged, and how features can be explained independently.
 
-The purpose of this repository is to build confidence and practical understanding in:
+---
+
+# Purpose
+
+This repository exists to build confidence and practical understanding in:
 
 - ASP.NET Core Web APIs
 - Controllers and routing
 - HTTP methods and status codes
-- `IActionResult` and `ActionResult<T>`
+- IActionResult and ActionResult<T>
 - Models and DTOs
-- Request validation
+- Request and response design
+- Validation
 - Dependency injection
 - Service-layer patterns
-- EF Core and SQL Server
-- Entity relationships
-- Authentication and authorization
-- JWT authentication
-- User-owned data
-- Role-based access control
+- Entity Framework Core
+- Database relationships
+- SQLite databases
 - Unit testing
 - Integration testing
-- Logging and error handling
 - Clean backend structure
+- Debugging backend applications
 
-This repository is used for focused learning, repetition, and technical interview preparation.
+This repository supports my larger portfolio project, **Cyberpunk Vault**, by allowing backend concepts to be practised in smaller isolated projects before applying them to a larger application.
 
-It complements my larger portfolio project, **Cyberpunk Vault**, a Cyberpunk TCG collection, wishlist, and trading API. Cyberpunk Vault remains the main portfolio application, while the API Gym provides smaller projects where backend concepts can be practised repeatedly and understood in isolation.
+---
 
-## Learning Approach
+# Learning Approach
 
-Each project follows a progressive learning cycle:
+Each project follows a progressive cycle:
 
 1. Learn a new concept in plain English.
-2. Understand why the concept exists and where it belongs.
+2. Understand why the concept exists.
 3. Review a small practical example.
-4. Build a guided implementation.
-5. Complete implementation challenges with reduced guidance.
-6. Complete debugging and code-reading exercises.
-7. Write unit tests for successful and unsuccessful scenarios.
-8. Review the implementation and tests.
-9. Run the complete solution using `dotnet build` and `dotnet test`.
-10. Commit each working milestone using a clear Git commit message.
-11. Apply the patterns learned here to larger applications such as Cyberpunk Vault.
+4. Implement the feature with guidance.
+5. Complete challenges with reduced guidance.
+6. Debug broken implementations.
+7. Write tests for successful and unsuccessful scenarios.
+8. Review design decisions.
+9. Build and test the complete solution.
+10. Commit completed milestones with meaningful Git messages.
 
-The goal is not simply to complete each project. The goal is to understand the complete request flow and become capable of designing, implementing, testing, debugging, and explaining backend features independently.
+The goal is to become capable of:
 
-## Challenge-Based Progression
+- Designing API features
+- Implementing backend logic
+- Understanding existing code
+- Debugging issues
+- Writing tests
+- Explaining technical decisions
 
-Challenges are a core part of this repository.
+---
 
-Exercises include:
+# Project 01 — Basic REST API
 
-- Completing missing controller actions
-- Building endpoints from written requirements
-- Predicting what code or an HTTP request will return
-- Finding and fixing broken code
-- Choosing appropriate HTTP status codes
-- Designing DTOs
-- Adding validation rules
-- Writing successful and unsuccessful test cases
-- Explaining implementation decisions
-- Refactoring working code into a cleaner structure
-- Answering interview-style questions about completed work
+**Status: Completed**
 
-Difficulty increases gradually as understanding improves.
+The first project introduced the foundations of ASP.NET Core Web API development.
 
-When a concept is not yet comfortable, progression pauses. The concept is revisited through smaller examples, recall questions, debugging tasks, endpoint extensions, and unit-test challenges until it can be implemented and explained with confidence.
+The project started as a simple in-memory API and was expanded into a database-backed application using Entity Framework Core.
 
-New topics are not introduced simply because a planned folder has been reached. Progression is based on demonstrated understanding.
+---
 
-## Learning and AI Usage
+# Implemented Concepts
 
-AI is used in this repository as a tutor, challenge setter, quizzer, debugging partner, and code-review assistant.
+## ASP.NET Core API Fundamentals
 
-It is used to:
-
-- Explain new C# and ASP.NET Core concepts
-- Provide progressively harder implementation challenges
-- Ask recall and interview-style questions
-- Review code and unit tests
-- Identify bugs and explain corrections
-- Suggest improvements to structure, security, and testing
-- Reinforce topics that are not yet fully understood
-
-AI-powered inline code prediction and automatic code completion are disabled during learning exercises.
-
-Code and tests are typed and worked through manually so that the underlying patterns are understood rather than accepted through automatic prediction.
-
-When a concept is completely new, a small guided example may be provided first. Similar endpoints, extensions, debugging tasks, and test scenarios are then completed with less assistance.
-
-The aim is to become capable of explaining, implementing, testing, and debugging each feature without relying on automatically generated solutions.
-
-## Repository Structure
-
-```text
-dotnet-api-gym
-│
-├── 01-basic-rest-api
-├── BasicRestApi.Tests
-├── 02-ef-core-relationships
-├── 03-jwt-auth-user-owned-data
-├── 04-roles-and-admin-access
-├── 05-private-messaging-api
-├── 06-refresh-tokens
-├── 07-service-layer-and-clean-architecture-basics
-├── CHALLENGES.md
-├── DotnetApiGym.sln
-└── README.md
-```
-
-New projects will be added as the concepts in the previous project become comfortable.
-
-## Projects
-
-### 01 — Basic REST API
-
-**Status:** In progress
-
-The first project introduces the structure, behaviour, architecture, and testing of a controller-based ASP.NET Core Web API.
-
-Implemented topics include:
-
-- Creating a .NET solution
-- Creating a controller-based ASP.NET Core Web API
-- Understanding `Program.cs` and the application entry point
-- Registering and mapping controllers
+- Creating a .NET Web API project
+- Understanding Program.cs
+- Controller registration
 - Attribute routing
 - HTTP methods
 - HTTP status codes
-- `IActionResult`
-- `ActionResult<T>`
-- Structured models
+- Swagger / OpenAPI
+
+## API Design
+
 - Request DTOs
 - Response DTOs
-- Request validation
-- Automatic validation responses with `[ApiController]`
-- Complete CRUD operations
-- Dependency injection
-- Service interfaces
-- Service implementations
-- Separating controller and service responsibilities
-- Singleton, scoped, and transient service lifetimes
-- xUnit test projects
-- Arrange, Act, Assert
-- `[Fact]` and `[Theory]`
-- Testing successful and unsuccessful service behaviour
-- Test isolation
-- Running builds and tests through Visual Studio and the .NET CLI
-- OpenAPI and Swagger UI
+- Model separation
+- Validation
+- Mapping between models and DTOs
+- Returning correct HTTP responses
 
-#### Current Endpoints
+## Architecture
+
+Implemented separation between:
+
+- Controllers
+- Interfaces
+- Services
+- Database layer
+
+The controller handles HTTP concerns.
+
+The service layer handles application behaviour.
+
+The database layer handles persistence.
+
+---
+
+# Current Architecture
+
+```text
+HTTP Request
+      |
+      ↓
+GamesController
+      |
+      ↓
+IGameService
+      |
+      ↓
+GameService
+      |
+      ↓
+GameDbContext
+      |
+      ↓
+SQLite Database
+```
+
+---
+
+# Database Features
+
+Implemented Entity Framework Core:
+
+- DbContext
+- DbSet
+- Database persistence
+- Foreign keys
+- Navigation properties
+- Entity relationships
+- Loading related data using Include()
+
+Relationships implemented:
+
+## Developer → Games
+
+One developer can have multiple games.
+
+```text
+Developer
+    |
+    |
+    ├── Game
+    ├── Game
+    └── Game
+```
+
+## Games ↔ Platforms
+
+Games can exist on multiple platforms.
+
+```text
+Game
+ |
+ ├── PlayStation 5
+ |
+ └── Xbox Series X
+```
+
+---
+
+# API Endpoints
+
+## Get all games
 
 ```http
-GET    /api/games
-GET    /api/games/{id}
-POST   /api/games
-PUT    /api/games/{id}
+GET /api/games
+```
+
+## Get game by ID
+
+```http
+GET /api/games/{id}
+```
+
+## Create game
+
+```http
+POST /api/games
+```
+
+## Update game
+
+```http
+PUT /api/games/{id}
+```
+
+## Delete game
+
+```http
 DELETE /api/games/{id}
 ```
 
-#### Example Response
+---
+
+# Example Response
 
 ```json
 {
   "id": 2,
   "title": "Cyberpunk 2077",
   "genre": "Action RPG",
-  "releaseYear": 2020
+  "releaseYear": 2020,
+  "developerId": 1,
+  "developerName": "CD PROJEKT",
+  "platforms": [
+    "PlayStation 5",
+    "Xbox Series X"
+  ]
 }
 ```
 
-#### Current Architecture
+---
 
-```text
-HTTP request
-    ↓
-GamesController
-    ↓
-IGameService
-    ↓
-GameService
-    ↓
-In-memory game collection
-```
+# Testing
 
-The controller is responsible for:
+Testing was implemented using xUnit.
 
-- Receiving HTTP input
-- Mapping request DTOs into models
-- Calling the service
-- Mapping models into response DTOs
-- Returning the appropriate HTTP status code
+## Unit Tests
 
-The service is responsible for:
+Covered:
 
-- Managing the in-memory game collection
-- Retrieving games
-- Generating IDs
+- Retrieving existing games
+- Handling missing games
 - Creating games
 - Updating games
 - Deleting games
+- Handling unsuccessful operations
 
-#### HTTP Responses
+## Controller Tests
 
-The current endpoints use the following status codes:
+Implemented using Moq.
+
+Covered:
+
+- Correct HTTP responses
+- Successful controller actions
+- Failed controller actions
+- Mocking service dependencies
+
+## Integration Tests
+
+Implemented using:
+
+- WebApplicationFactory
+- Test database setup
+- In-memory database replacement
+
+Covered:
+
+- Full HTTP request flow
+- Creating resources
+- Updating resources
+- Deleting resources
+- Confirming API behaviour
+
+---
+
+# HTTP Responses Used
 
 ```text
-200 OK           Request succeeded and response data is returned
-201 Created      A new game was successfully created
-204 No Content   An update or deletion succeeded without a response body
-400 Bad Request  Request validation failed
-404 Not Found    A game with the requested ID does not exist
+200 OK
+Request succeeded and data returned
+
+201 Created
+Resource successfully created
+
+204 No Content
+Update or delete completed successfully
+
+400 Bad Request
+Invalid request data
+
+404 Not Found
+Requested resource does not exist
 ```
 
-#### Current Test Coverage
+---
 
-`GameService` unit tests currently cover:
+# Development Requirements
 
-- Returning the seeded games
-- Confirming each expected seeded game is present
-- Retrieving an existing game
-- Returning `null` for a missing game
-- Creating a game
-- Generating a new game ID
-- Preserving submitted game properties
-- Confirming a created game is stored
-- Updating an existing game
-- Confirming updated properties are stored
-- Returning `false` when updating a missing game
-- Deleting an existing game
-- Confirming a deleted game can no longer be retrieved
-- Returning `false` when deleting a missing game
+- .NET 9 SDK
+- Visual Studio 2022 or compatible editor
+- Git
+- SQLite
 
-#### Upcoming Work
+---
 
-- Unit-test `GamesController`
-- Mock `IGameService`
-- Test controller HTTP result types
-- Test successful and unsuccessful controller responses
-- Add API integration tests
-- Build another controller from written acceptance criteria
-- Complete extension and debugging challenges
+# Running The Project
 
-### 02 — EF Core Relationships
+Build solution:
 
-**Status:** Planned
+```bash
+dotnet build
+```
 
-Planned topics:
+Run API:
 
-- `DbContext`
-- `DbSet`
-- Entities
-- Primary keys
-- Foreign keys
-- One-to-many relationships
-- Database migrations
+```bash
+dotnet run
+```
+
+Run tests:
+
+```bash
+dotnet test
+```
+
+---
+
+# Reflection
+
+This project started as a simple REST API and gradually evolved into a database-backed application.
+
+The biggest lessons learned:
+
+- Controllers should focus on HTTP handling rather than business logic.
+- Services provide a cleaner location for application behaviour.
+- DTOs prevent directly exposing database models.
+- Entity Framework relationships require understanding both foreign keys and navigation properties.
+- Unit tests and integration tests solve different problems.
+- Debugging database issues requires understanding the complete request flow.
+
+The project is intentionally kept smaller than a production application so that concepts can be understood clearly before being applied to larger systems.
+
+---
+
+# Future Learning Projects
+
+## Project 02 — Advanced EF Core Relationships
+
+Topics:
+
+- Advanced relationships
+- Migrations
 - SQL Server
-- Asynchronous EF Core operations
-- `async` and `await`
-- Cancellation tokens
-- Loading related data
-- Tracking and `AsNoTracking`
-- Database testing decisions
+- Async EF Core
+- Tracking and AsNoTracking
+- Database design decisions
 
-### 03 — JWT Authentication and User-Owned Data
+---
 
-**Status:** Planned
+## Project 03 — Authentication API
 
-Planned topics:
+Topics:
 
 - User registration
 - Password hashing
-- Login
-- JWT creation
+- JWT authentication
 - Claims
 - Protected endpoints
-- Accessing the current user
-- Ensuring users can only access their own records
-- Authentication testing
-- Ownership and security checks
+- User-owned data
 
-### 04 — Roles and Admin Access
+---
 
-**Status:** Planned
+## Project 04 — Roles and Permissions
 
-Planned topics:
+Topics:
 
-- User and Admin roles
-- Role claims
-- Role-based authorization
-- Admin-only endpoints
-- `401 Unauthorized`
-- `403 Forbidden`
-- Authorization testing
+- User roles
+- Admin access
+- Authorization
+- Security testing
 
-### 05 — Private Messaging API
+---
 
-**Status:** Planned
+# Current Progress
 
-Planned topics:
+- [x] Created .NET solution
+- [x] Created ASP.NET Core Web API
+- [x] Built CRUD endpoints
+- [x] Added DTOs
+- [x] Added validation
+- [x] Added dependency injection
+- [x] Added service layer
+- [x] Added interfaces
+- [x] Added Entity Framework Core
+- [x] Added SQLite database
+- [x] Added Developer relationship
+- [x] Added Platform relationship
+- [x] Added controller unit tests
+- [x] Added service unit tests
+- [x] Added integration tests
+- [x] Completed API testing workflow
 
-- Conversations
-- Messages
-- Senders and recipients
+---
+
+# Completed Challenge
+
+## Database-backed Games API
+
+Completed:
+
+- CRUD functionality
+- Service layer
+- Database persistence
 - Entity relationships
-- Conversation membership
-- Access checks
-- Private user data
-- Messaging test scenarios
-
-### 06 — Refresh Tokens
-
-**Status:** Planned
-
-Planned topics:
-
-- Access-token expiration
-- Refresh-token generation
-- Refresh-token storage
-- Token rotation
-- Token revocation
-- Security considerations
-- Refresh-token testing
-
-### 07 — Service Layer and Clean Architecture Basics
-
-**Status:** Planned
-
-This project will expand on the service-layer fundamentals introduced in the Basic REST API.
-
-Planned topics:
-
-- Controller responsibilities
-- Application services
-- Interfaces
-- Dependency injection
-- Separation of concerns
-- Mocking dependencies
-- Repository patterns
-- Unit tests
-- Integration tests
-- Cleaner backend organisation
-- Centralised error handling
-- Logging
-- Configuration
-- Maintainable project boundaries
-
-## Development Requirements
-
-- .NET 9 SDK
-- Visual Studio 2022 or another compatible editor
-- Git
-- SQL Server
-- SQL Server Management Studio for later projects
-
-## Development Commands
-
-Build the complete solution:
-
-```bash
-dotnet build DotnetApiGym.sln
-```
-
-Run the Basic REST API:
-
-```bash
-dotnet run --project ./01-basic-rest-api/BasicRestApi.csproj --launch-profile https
-```
-
-Run all tests:
-
-```bash
-dotnet test DotnetApiGym.sln
-```
-
-Run only the `GameServiceTests` class:
-
-```bash
-dotnet test DotnetApiGym.sln --filter "FullyQualifiedName~BasicRestApi.Tests.Services.GameServiceTests"
-```
-
-## Local API Documentation
-
-Swagger UI is available while the API is running in the Development environment:
-
-```text
-https://localhost:7123/swagger
-```
-
-The port may differ depending on the local launch settings.
-
-Swagger UI provides one page for viewing and testing the endpoints exposed by all mapped controllers.
-
-## Current Progress
-
-- [x] Created the .NET solution and Basic REST API project
-- [x] Confirmed the solution builds and runs successfully
-- [x] Reviewed the application startup flow in `Program.cs`
-- [x] Created `GET /api/games`
-- [x] Added a structured `Game` model
-- [x] Returned structured game data using `200 OK`
-- [x] Added OpenAPI generation and Swagger UI
-- [x] Added an endpoint for retrieving a game by ID
-- [x] Returned `404 Not Found` when a game does not exist
-- [x] Added complete CRUD endpoints
-- [x] Added request DTOs
-- [x] Added response DTOs
-- [x] Added request validation
-- [x] Returned `201 Created` after creating a game
-- [x] Returned `204 No Content` after successful updates and deletions
-- [x] Extracted game logic into `GameService`
-- [x] Added the `IGameService` abstraction
-- [x] Registered the game service with dependency injection
-- [x] Injected `IGameService` into `GamesController`
-- [x] Learned singleton, scoped, and transient service lifetimes
-- [x] Added the first xUnit test project
-- [x] Learned Arrange, Act, Assert
-- [x] Used `[Fact]` and `[Theory]`
-- [x] Added unit tests for successful and unsuccessful `GameService` behaviour
-- [x] Confirmed all current tests pass
-- [x] Add unit tests for `GamesController`
-- [x] Mock `IGameService`
-- [x] Add integration tests for the Games API
-- [x] Build a second controller from written acceptance criteria
-- [x] Replace the in-memory collection with EF Core
-- [x] Add unit tests for `GamesController`
-
-## Completed Challenge
-
-[Challenge 13: Add a Developer to Games ✅](CHALLENGES.md#challenge-13-add-a-developer-to-games)
-
-## Latest Completed Challenge
-
-Build a second API resource for gaming platforms using the existing Games implementation as the reference pattern.
-
-[View the full acceptance criteria ✅](CHALLENGES.md#challenge-14-build-a-platforms-api)
+- Testing
+- API integration testing
